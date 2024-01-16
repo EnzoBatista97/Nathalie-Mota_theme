@@ -9,7 +9,7 @@ Tags: openclassrooms, Nathalie Mota, photographe
 Text Domain: NathalieMota
 */
 
-/*INTEGRATION DES FONTS*/
+/* INTEGRATION DES FONTS */
 
 /* Space Mono Bold Italic */
 @font-face {
@@ -43,7 +43,6 @@ Text Domain: NathalieMota
     src: url('assets/fonts/Poppins/Poppins-Light.ttf') format('truetype');
 }
 
-
 h1 {
     font-family: 'Space Mono', sans-serif;
     font-weight: 700;
@@ -67,4 +66,3 @@ p {
     font-weight: 300;
     font-style: normal;
 }
-

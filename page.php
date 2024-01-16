@@ -9,10 +9,10 @@
  * @since Twenty Twenty-One 1.0
  */
 
-get_header();
+	get_header();
 
-/* Start the Loop */
-while ( have_posts() ) :
+	/* Start the Loop */
+	while ( have_posts() ) :
 	the_post();
 	get_template_part( 'template-parts/content/content-page' );
 
@@ -20,6 +20,6 @@ while ( have_posts() ) :
 	if ( comments_open() || get_comments_number() ) {
 		comments_template();
 	}
-endwhile; // End of the loop.
+	endwhile; // End of the loop.
 
-get_footer();
+	get_footer();
