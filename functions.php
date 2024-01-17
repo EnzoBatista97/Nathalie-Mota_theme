@@ -24,7 +24,7 @@ add_action('wp_enqueue_scripts', 'theme_scripts');
 
 function theme_styles() {
     // Enregistrer le style
-    wp_enqueue_style('styles.css', get_template_directory_uri() . '/assets/css/styles.css', array(), '1.0', 'all');
+    wp_enqueue_style('styles.css', get_template_directory_uri() . '/assets/sass/styles.css', array(), '1.0', 'all');
 }
 
 // Ajouter l'action pour charger le style dans la file d'attente WordPress

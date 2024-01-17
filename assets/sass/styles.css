@@ -1,0 +1,75 @@
+@font-face {
+  font-family: "Space Mono";
+  font-weight: 700;
+  font-style: italic;
+  src: url("../fonts/Space_Mono/SpaceMono-BoldItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Space Mono";
+  font-weight: 400;
+  font-style: italic;
+  src: url("../fonts/Space_Mono/SpaceMono-Italic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Space Mono";
+  font-weight: 400;
+  font-style: normal;
+  src: url("../fonts/Space_Mono/SpaceMono-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Poppins";
+  font-weight: 300;
+  font-style: normal;
+  src: url("../fonts/Poppins/Poppins-Light.ttf") format("truetype");
+}
+h1 {
+  font-family: "Space Mono", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+h2 {
+  font-family: "Space Mono", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+h3, .description-photo {
+  font-family: "Space Mono", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+p {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+#site-navigation-header {
+  display: flex;
+  align-items: center;
+  margin-left: 146px;
+  margin-right: 146px;
+}
+#site-navigation-header .logo {
+  margin-right: auto;
+}
+#site-navigation-header .logo img {
+  width: 216px;
+  height: 14px;
+}
+#site-navigation-header ul {
+  list-style: none;
+  display: flex;
+}
+#site-navigation-header ul li {
+  margin-right: 45px;
+}
+#site-navigation-header ul a {
+  text-decoration: none;
+  color: #000;
+  font-family: "Space Mono", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+}/*# sourceMappingURL=styles.css.map */
