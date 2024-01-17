@@ -1,92 +1,72 @@
-// INTEGRATION DES FONTS
-
-// Space Mono Bold Italic
-@font-face {
-    font-family: 'Space Mono';
-    font-weight: 700;
-    font-style: italic;
-    src: url('../fonts/Space_Mono/SpaceMono-BoldItalic.ttf') format('truetype');
-}
-
-// Space Mono Italic 400
-@font-face {
-    font-family: 'Space Mono';
-    font-weight: 400;
-    font-style: italic;
-    src: url('../fonts/Space_Mono/SpaceMono-Italic.ttf') format('truetype');
-}
-
-// Space Mono Normal 400
-@font-face {
-    font-family: 'Space Mono';
-    font-weight: 400;
-    font-style: normal;
-    src: url('../fonts/Space_Mono/SpaceMono-Regular.ttf') format('truetype');
-}
-
-// Poppins Normal 300
-@font-face {
-    font-family: 'Poppins';
-    font-weight: 300;
-    font-style: normal;
-    src: url('../fonts/Poppins/Poppins-Light.ttf') format('truetype');
-}
-
-h1 {
-    font-family: 'Space Mono', sans-serif;
-    font-weight: 700;
-    font-style: italic;
-}
-
-h2 {
-    font-family: 'Space Mono', sans-serif;
-    font-weight: 400;
-    font-style: italic;
-}
-
-h3, .description-photo {
-    font-family: 'Space Mono', sans-serif;
-    font-weight: 400;
-    font-style: normal;
-}
-
-p {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 300;
-    font-style: normal;
-}
+// Définir des variables
+$font-family: 'Space Mono', sans-serif;
+$font-size: 16px;
+$text-color: #000;
+$spacing-header: 45px;
+$spacing-footer: 86px;
 
 // HEADER
-
 #site-navigation-header {
-    display: flex; // Utilisation Flexbox pour aligner les éléments horizontalement
-    align-items: center; // Centre les éléments verticalement dans le conteneur
-    margin-left: 146px; // Espace à gauche du conteneur du menu
-    margin-right: 146px; // Espace à droite du conteneur du menu
+    display: flex;
+    align-items: center;
+    margin-left: 146px;
+    margin-right: 146px;
 
     .logo {
-        margin-right: auto; // Pousse le logo vers la gauche, aligné à gauche
+        margin-right: auto;
 
         img {
-            width: 216px; // Largeur pour le logo
-            height: 14px; // Hauteur pour le logo
+            width: 216px;
+            height: 14px;
         }
     }
 
     ul {
-        list-style: none; // Supprime les puces de la liste
-        display: flex; // Utilisation Flexbox pour aligner les éléments horizontalement
+        list-style: none;
+        display: flex;
 
         li {
-            margin-right: 45px; // Espacement entre les éléments du menu
+            margin-right: $spacing-header;
         }
 
         a {
-            text-decoration: none; // Supprime le soulignement du lien
-            color: #000;
-            font-family: 'Space Mono', sans-serif;
+            text-decoration: none;
+            color: $text-color;
+            font-family: $font-family;
             font-weight: 400;
-            font-size: 16px;
+            font-size: $font-size;
         }
+    }
+}
+
+// FOOTER
+#site-navigation-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+
+    ul {
+        list-style: none;
+        display: flex;
+
+        li {
+            margin-right: $spacing-footer;
+        }
+
+        a {
+            text-decoration: none;
+            color: $text-color;
+            font-family: $font-family;
+            font-weight: 400;
+            font-size: $font-size;
+        }
+    }
+
+    .rights-reserved {
+        margin: 0;
+        font-family: $font-family;
+        font-size: $font-size;
+        color: $text-color;
     }
 }

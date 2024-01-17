@@ -14,19 +14,16 @@ add_theme_support('custom-logo', array(
     'flex-width'  => true,
 ));
 
-function theme_scripts() {
+function theme_scripts_and_styles() {
     // Enregistrer le script
     wp_enqueue_script('scripts.js', get_template_directory_uri() . '/assets/js/scripts.js', array('jquery'), '1.0', true);
-}
 
-// Ajouter l'action pour charger le script dans la file d'attente WordPress
-add_action('wp_enqueue_scripts', 'theme_scripts');
-
-function theme_styles() {
     // Enregistrer le style
     wp_enqueue_style('styles.css', get_template_directory_uri() . '/assets/sass/styles.css', array(), '1.0', 'all');
+
+    // Enregistrer les fonts
+    wp_enqueue_style('fonts', get_template_directory_uri() . '/assets/css/fonts.css');
 }
 
-// Ajouter l'action pour charger le style dans la file d'attente WordPress
-add_action('wp_enqueue_scripts', 'theme_styles');
-
+// Ajouter l'action pour charger le script et le style dans la file d'attente WordPress
+add_action('wp_enqueue_scripts', 'theme_scripts_and_styles');
