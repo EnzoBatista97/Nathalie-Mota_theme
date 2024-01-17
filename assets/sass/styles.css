@@ -51,4 +51,8 @@
   font-family: "Space Mono", sans-serif;
   font-size: 16px;
   color: #000;
+}
+
+#contact-modal {
+  display: none;
 }/*# sourceMappingURL=styles.css.map */

@@ -9,10 +9,7 @@
 
 <body <?php body_class(); ?>>
 
-    <?php wp_head(); ?>
-
     <nav id="site-navigation-header" class="main-navigation">
-        
         <div class="logo">
             <?php the_custom_logo(); ?>
         </div>
@@ -25,3 +22,6 @@
         ?>
     </nav><!-- #site-navigation-header -->
 
+    <?php
+    get_template_part('templates_part/modal-contact');
+    ?>
