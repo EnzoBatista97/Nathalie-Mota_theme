@@ -1,3 +1,4 @@
+@charset "UTF-8";
 #site-navigation-header {
   display: flex;
   align-items: center;
@@ -55,4 +56,66 @@
 
 #contact-modal {
   display: none;
+  width: 597px;
+  height: 769px;
+  border: 5px solid #000;
+  z-index: 9999;
+  overflow: hidden;
+  margin: 0 auto;
+  /* Styles spécifiques pour le champ de message */
+  /* Style pour le bouton Envoyer */
+}
+#contact-modal form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+#contact-modal form p {
+  margin: 0;
+}
+#contact-modal img {
+  margin-top: 18px;
+  margin-bottom: 45.95px;
+  transform: translateX(-16.31%);
+}
+#contact-modal .close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+#contact-modal label {
+  display: block;
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 24px;
+  color: #000;
+}
+#contact-modal input[type=text],
+#contact-modal input[type=email],
+#contact-modal input[type=submit] {
+  width: 263px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid #C4C4C4;
+}
+#contact-modal textarea {
+  width: 263px;
+  height: 210px;
+  border-radius: 8px;
+  border: 1px solid #C4C4C4;
+}
+#contact-modal input[type=submit] {
+  width: 263px;
+  height: 50px;
+  background-color: #D8D8D8;
+  color: #000;
+  border-radius: 2px;
+  box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
+  border: none;
+  cursor: pointer;
 }/*# sourceMappingURL=styles.css.map */
