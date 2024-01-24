@@ -2,7 +2,11 @@
 
 // Ajouter le support des classes personnalisées pour les menus
 function theme_setup() {
+    // Ajouter le support des menus WordPress
     add_theme_support('menus');
+
+    // Ajouter le support des images mises en avant (thumbnails)
+    add_theme_support('post-thumbnails');
 
     // Ajouter le support des classes personnalisées pour les éléments de menu
     register_nav_menu('menu-principal-header', __('Menu Header', 'NathalieMota'));
@@ -22,11 +26,29 @@ add_filter('nav_menu_css_class', 'theme_custom_menu_classes', 10, 3);
 
 // Ajouter le support du logo du site
 add_theme_support('custom-logo', array(
-    'height'      => 100, // Ajustez la hauteur selon vos besoins
-    'width'       => 100, // Ajustez la largeur selon vos besoins
+    'height'      => 100,
+    'width'       => 100,
     'flex-height' => true,
     'flex-width'  => true,
 ));
+
+// Compression des images lors de l'upload
+function compress_uploaded_images($file) {
+    // Définir la qualité de compression JPEG à 82%
+    add_filter('jpeg_quality', function ($arg) {
+        return 82;
+    });
+
+    return $file;
+}
+add_filter('wp_handle_upload_prefilter', 'compress_uploaded_images');
+
+// Ajouter le support des fichiers WebP lors de l'upload
+function add_webp_upload_mimes($existing_mimes) {
+    $existing_mimes['webp'] = 'image/webp';
+    return $existing_mimes;
+}
+add_filter('mime_types', 'add_webp_upload_mimes');
 
 // Enregistrez les scripts et styles
 function theme_scripts_and_styles() {
