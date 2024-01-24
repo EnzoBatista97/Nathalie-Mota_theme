@@ -1,6 +1,6 @@
 <?php
 /**
- * The template for displaying all single posts
+ * The template for displaying single photos
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
  *
@@ -16,7 +16,7 @@ while (have_posts()) :
     the_post();
 
     // Inclure le template pour afficher le contenu de l'article unique
-    get_template_part('templates_part/content-single');
+    get_template_part('template-parts/content-single');
 
     if (is_attachment()) {
         // Parent post navigation.

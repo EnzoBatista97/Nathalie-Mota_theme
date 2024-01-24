@@ -2,9 +2,10 @@
 
 <!-- Contenu principal -->
 <div id="content">
-    <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-        <?php the_content(); ?>
-    <?php endwhile; endif; ?>
+    <?php
+    // Si besoin d'afficher quelque chose sur la page d'accueil,
+    //ajouter du contenu ici.
+    ?>
 </div>
 
 <?php get_footer(); ?>
