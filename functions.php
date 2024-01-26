@@ -8,6 +8,13 @@ function theme_setup() {
     // Ajouter le support des images mises en avant (thumbnails)
     add_theme_support('post-thumbnails');
 
+    // Ajouter la taille d'image personnalisée pour correspondre à la maquette
+function custom_image_sizes() {
+    add_image_size('custom-single-photo', 1200, 800, true); // Changer les dimensions selon vos besoins
+}
+add_action('after_setup_theme', 'custom_image_sizes');
+
+
     // Ajouter le support des classes personnalisées pour les éléments de menu
     register_nav_menu('menu-principal-header', __('Menu Header', 'NathalieMota'));
     register_nav_menu('menu-principal-footer', __('Menu Footer', 'NathalieMota'));
