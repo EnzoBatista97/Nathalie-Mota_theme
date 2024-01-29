@@ -20,7 +20,7 @@
             'menu_id' => 'primary-menu-header',
         ));
         ?>
-    </nav><!-- #site-navigation-header -->
+    </nav>
 
     <?php
     get_template_part('template-parts/modal-contact');

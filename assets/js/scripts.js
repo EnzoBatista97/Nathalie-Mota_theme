@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Sélectionnez le bouton qui ouvre la modale depuis le header (par exemple)
     var openModalButton = document.getElementById('menu-item-34');
 
+    // Sélectionne le bouton de contact dans le contenu
+    var ctaContactButton = document.querySelector('.cta-contact-button');
+
     // Fonction pour ouvrir la modale
     function openModal() {
         console.log('Ouverture de la modale');
@@ -18,8 +21,11 @@ document.addEventListener('DOMContentLoaded', function () {
         modal.style.display = 'none';
     }
 
-    // Ajoutez un écouteur d'événement pour ouvrir la modale
+    // Ajoutez un écouteur d'événement pour ouvrir la modale depuis le header
     openModalButton.addEventListener('click', openModal);
+
+    // Ajoutez un écouteur d'événement pour ouvrir la modale depuis le contenu
+    ctaContactButton.addEventListener('click', openModal);
 
     // Ajoutez un écouteur d'événement pour fermer la modale en cliquant sur le bouton de fermeture
     closeModalButton.addEventListener('click', closeModal);

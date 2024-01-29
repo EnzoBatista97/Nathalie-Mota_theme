@@ -1,9 +1,3 @@
-// Définir des variables
-$font-family: 'Space Mono', sans-serif;
-$font-size: 16px;
-$spacing-header: 45px;
-$spacing-footer: 86px;
-
 // Couleurs
 $primary-red: #E00000;
 $black: #000;
@@ -14,75 +8,76 @@ $light-background: #E5E5E5;
 $light-red: #FFD6D6;
 $gray: #C4C4C4;
 
+//GLOBAL
+body{
+    margin: auto;
+    max-width: 1440px;
+}
+
 // HEADER
-#site-navigation-header {
+#site-navigation-header{
     display: flex;
     align-items: center;
+    justify-content: center;
     margin-left: 146px;
     margin-right: 146px;
 
-    .logo {
+    .logo{
         margin-right: auto;
 
-        img {
+        img{
             width: 216px;
             height: 14px;
         }
     }
 
-    ul {
+    ul{
         list-style: none;
         display: flex;
+        gap: 45px;
 
-        li {
-            margin-right: $spacing-header;
-        }
-
-        a {
+        a{
             text-decoration: none;
             color: $black;
-            font-family: $font-family;
+            font-family: 'Space Mono', sans-serif;
             font-weight: 400;
-            font-size: $font-size;
+            font-size: 16px;
         }
     }
 }
 
 // FOOTER
-#site-navigation-footer {
+#site-navigation-footer{
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
 
-    ul {
+    ul{
         list-style: none;
         display: flex;
 
-        li {
-            margin-right: $spacing-footer;
+        li{
+            margin-right: 86px;
         }
 
-        a {
+        a{
             text-decoration: none;
             color: $black;
-            font-family: $font-family;
+            font-family: 'Space Mono', sans-serif;
             font-weight: 400;
-            font-size: $font-size;
+            font-size: 16px;
         }
     }
 
-    .rights-reserved {
-        margin: 0;
-        font-family: $font-family;
-        font-size: $font-size;
+    .rights-reserved{
+        font-family: 'Space Mono', sans-serif;
+        font-size: 16px;
         color: $black;
     }
 }
 
 //CONTACT MODAL
-
-#contact-modal {
+#contact-modal{
     display: none;
     width: 597px;
     height: 769px;
@@ -91,34 +86,29 @@ $gray: #C4C4C4;
     overflow: hidden;
     margin: 0 auto;
 
-    form {
+    form{
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 100%;
 
-        p {
+        p{
             margin: 0;
         }
     }
 
-    img {
+    img{
         margin-top: 18px;
         margin-bottom: 45.95px;
         transform: translateX(-16.31%);
     }
 
-    .close-modal {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        font-size: 24px;
-        cursor: pointer;
+    .close-modal{
+        display: none;
     }
 
     // Styles pour les labels
-    label {
+    label{
         display: block;
         font-family: 'Poppins', sans-serif;
         font-size: 12px;
@@ -130,7 +120,7 @@ $gray: #C4C4C4;
     // Styles pour les champs d'entrée
     input[type="text"],
     input[type="email"],
-    input[type="submit"] {
+    input[type="submit"]{
         width: 263px;
         height: 40px;
         border-radius: 8px;
@@ -138,14 +128,14 @@ $gray: #C4C4C4;
     }    
 
     /* Styles spécifiques pour le champ de message */
-    textarea {
+    textarea{
         width: 263px;
         height: 210px;
         border-radius: 8px;
         border: 1px solid $gray;
     }
     /* Style pour le bouton Envoyer */
-    input[type="submit"] {
+    input[type="submit"]{
         width: 263px;
         height: 50px;
         background-color: $light-gray;
@@ -158,3 +148,71 @@ $gray: #C4C4C4;
 }
 
 /* Styles pour la structure de la page */
+.photo-details-section{
+    margin-top: 38px;
+    margin-left: 146px;
+    margin-right: 146px;
+
+    .photo-container{
+        display: flex;
+        height: 844px;
+        gap: 21px;
+        justify-content:center;
+
+        .photo-details{
+            width: 50%;
+            border-bottom: 1px solid $black;
+            align-self: flex-end;
+
+            &_container{
+                width: 420px;
+                gap: 20px;
+                text-transform: uppercase;
+                font-family: 'Space Mono', sans-serif;
+                margin-bottom: 37px;
+
+                p{
+                    margin-block-start: 20px;
+                    margin-block-end: 0px;
+                    font-size: 14px;
+                    letter-spacing: 1.4px;
+                }
+
+                .photo-title{
+                    margin-block-start: 0px;
+                    margin-block-end: 0px;
+                    font-size: 66px;
+                    font-style: italic;
+                    font-weight: 400;
+                    line-height: 58px
+                }
+            }
+        }
+
+        .photo-image-container{
+            width: 50%;
+
+            img{
+                height: 844px;
+                width: 100%;
+            }
+        }
+    }
+
+    .cta-and-navigation-container{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .cta-container{
+            display: flex;
+            align-items: center;
+            gap: 96px;
+            
+            p{
+                font-family: 'Poppins', sans-serif;
+                font-size: 14px;
+            }
+        } 
+    }
+}

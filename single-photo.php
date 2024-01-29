@@ -19,49 +19,52 @@
     <div class="photo-container">
 
         <!--Div des détails de la photos-->
-        <div class="photo-details-container">
-            
-            <!--Affichage du titre-->
-            <h1 class="photo-title"><?php the_title(); ?></h1>
+        <div class="photo-details">
 
-            <?php
+            <div class="photo-details_container">
 
-                // Affichage de la référence
-                $reference = get_post_meta(get_the_ID(), 'Référence', true);
-                if ($reference) {
-                    echo '<p class="photo-reference">Référence : ' . esc_html($reference) . '</p>';
-                }
+                <!--Affichage du titre-->
+                <h1 class="photo-title"><?php the_title(); ?></h1>
 
-                // Affichage de la catégorie
-                $categorie = get_the_terms(get_the_ID(), 'categorie');
-                if ($categorie && !is_wp_error($categorie)) {
-                    $category_name = array();
-                    foreach ($categorie as $category) {
-                        $category_name[] = $category->name;
+                <?php
+
+                    // Affichage de la référence
+                    $reference = get_post_meta(get_the_ID(), 'Référence', true);
+                    if ($reference) {
+                        echo '<p class="photo-reference">Référence : ' . esc_html($reference) . '</p>';
                     }
-                    echo '<p class="photo-category">Catégorie : ' . esc_html(implode(', ', $category_name)) . '</p>';
-                }
 
-                // Affichage du format
-                $format = get_the_terms(get_the_ID(), 'format');
-                if ($format && !is_wp_error($format)) {
-                    $format_name = array();
-                    foreach ($format as $format) {
-                        $format_name[] = $format->name;
+                    // Affichage de la catégorie
+                    $categorie = get_the_terms(get_the_ID(), 'categorie');
+                    if ($categorie && !is_wp_error($categorie)) {
+                        $category_name = array();
+                        foreach ($categorie as $category) {
+                            $category_name[] = $category->name;
+                        }
+                        echo '<p class="photo-category">Catégorie : ' . esc_html(implode(', ', $category_name)) . '</p>';
                     }
-                    echo '<p class="photo-format">Format : ' . esc_html(implode(', ', $format_name)) . '</p>';
-                }
-            
-                // Affichage du type
-                $type = get_post_meta(get_the_ID(), 'Type', true);
-                if ($type) {
-                    echo '<p class="photo-type">Type : ' . esc_html($type) . '</p>';
-                }
-            
-                // Affichage de l'année de publication
-                $publication_year = get_the_date('Y');
-                echo '<p class="photo-year">Année : ' . esc_html($publication_year) . '</p>';
-            ?>
+
+                    // Affichage du format
+                    $format = get_the_terms(get_the_ID(), 'format');
+                    if ($format && !is_wp_error($format)) {
+                        $format_name = array();
+                        foreach ($format as $format) {
+                            $format_name[] = $format->name;
+                        }
+                        echo '<p class="photo-format">Format : ' . esc_html(implode(', ', $format_name)) . '</p>';
+                    }
+                
+                    // Affichage du type
+                    $type = get_post_meta(get_the_ID(), 'Type', true);
+                    if ($type) {
+                        echo '<p class="photo-type">Type : ' . esc_html($type) . '</p>';
+                    }
+                
+                    // Affichage de l'année de publication
+                    $publication_year = get_the_date('Y');
+                    echo '<p class="photo-year">Année : ' . esc_html($publication_year) . '</p>';
+                ?>
+            </div>
         </div>
 
         <!--Div de la photo-->
@@ -81,9 +84,13 @@
     <div class="cta-and-navigation-container">
 
         <!--Affichage du CTA-->
-        <div class="cta-container">    
-            <p>Cette photo vous intéresse ?</p>
-            <a href="#contactPopup" class="cta-contact" data-reference="<?php echo esc_attr($reference); ?>">Contact</a>
+        <div class="cta-and-navigation-container">
+
+            <!--Affichage du CTA-->
+            <div class="cta-container">    
+                <p>Cette photo vous intéresse ?</p>
+                <button class="cta-contact-button" data-reference="<?php echo esc_attr($reference); ?>">Contact</button>
+            </div>
         </div>
         
         <!--Affichage du défilemment des photos-->
