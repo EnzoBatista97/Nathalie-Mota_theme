@@ -175,4 +175,86 @@ body {
 .photo-details-section .cta-and-navigation-container .cta-container p {
   font-family: "Poppins", sans-serif;
   font-size: 14px;
+}
+
+.hero-section {
+  background: url("../images/Photo header.png") center/cover no-repeat;
+  height: 966px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-section h1 {
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 3px #fff;
+  font-family: "Space Mono";
+  font-size: 96px;
+  font-style: italic;
+}
+.hero-section p {
+  font-size: 18px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.filters-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+.filters-section .filter-container {
+  display: flex;
+  align-items: center;
+}
+.filters-section .filter-label {
+  margin-right: 10px;
+  font-size: 16px;
+}
+.filters-section .filter-select {
+  padding: 8px;
+  font-size: 14px;
+}
+
+.photo-list-section {
+  padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.photo-list-section .photo-list-container {
+  -moz-column-count: 2;
+       column-count: 2;
+  -moz-column-gap: 20px;
+       column-gap: 20px;
+}
+.photo-list-section .photo-list-container .photo-item {
+  margin-bottom: 20px;
+  width: 564px;
+  height: 495px;
+}
+.photo-list-section .photo-list-container .photo-item .photo-image {
+  width: 564px;
+  height: 495px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease-in-out;
+}
+.photo-list-section .photo-list-container .photo-item .photo-image:hover {
+  transform: scale(1.1);
+}
+
+.load-more-container {
+  text-align: center;
+  margin-top: 20px;
+}
+.load-more-container button {
+  background-color: #E00000;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
 }/*# sourceMappingURL=styles.css.map */

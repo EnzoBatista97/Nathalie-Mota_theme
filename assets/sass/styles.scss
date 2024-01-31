@@ -216,3 +216,98 @@ body{
         } 
     }
 }
+
+// Ajoutstyles pour la section hero
+
+.hero-section {
+    background: url('../images/Photo header.png') center/cover no-repeat;
+    height: 966px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    h1 {
+        -webkit-text-fill-color: transparent;
+        -webkit-text-stroke: 3px #fff;
+        font-family: "Space Mono";
+        font-size: 96px;
+        font-style: italic;
+    }
+
+    p {
+        font-size: 18px;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+}
+
+// Ajout styles pour la section des filtres
+.filters-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+
+    .filter-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .filter-label {
+        margin-right: 10px;
+        font-size: 16px;
+    }
+
+    .filter-select {
+        padding: 8px;
+        font-size: 14px;
+    }
+}
+
+
+// Ajout styles pour la section de la liste des photos
+.photo-list-section {
+    padding: 40px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .photo-list-container {
+        column-count: 2;
+        column-gap: 20px;
+
+        .photo-item {
+            margin-bottom:20px;
+            width: 564px;
+            height: 495px;
+
+            .photo-image {
+                width: 564px;
+                height: 495px;
+                object-fit: cover;
+                display: block;
+                transition: transform 0.3s ease-in-out;
+
+                &:hover {
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
+}
+
+.load-more-container {
+    text-align: center;
+    margin-top: 20px;
+
+    button {
+        background-color: $primary-red;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+    }
+}
+
