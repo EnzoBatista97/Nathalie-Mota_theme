@@ -31,26 +31,34 @@ document.addEventListener('DOMContentLoaded', function () {
             nonce: wpApiSettings.nonce,
             page: page,
         };
-
+    
         jQuery.ajax({
             type: 'POST',
             url: frontendajax.ajaxurl,
             data: data,
-            success: (response) => handleLoadMoreSuccess(response),
-            error: (error) => handleLoadMoreError(error),
+            success: function (response) {
+                console.log('Réponse Ajax réussie :', response);
+                handleLoadMoreSuccess(response);
+            },
+            error: function (error) {
+                console.error('Erreur lors du chargement des photos :', error);
+                handleLoadMoreError(error);
+            },
         });
     }
-
-    // Fonction pour traiter le succès du chargement de plus de photos
+    
     function handleLoadMoreSuccess(response) {
         console.log('Réponse Ajax réussie :', response);
-
+    
         const newElements = jQuery.parseHTML(response.data);
-        jQuery('.photo-list-container').append(newElements);
+        const photoListContainer = jQuery('.photo-list-container');
+        
+        // Ajouter les nouveaux éléments à la fin de la liste existante
+        photoListContainer.append(newElements);
+    
         page++;
     }
-
-    // Fonction pour traiter les erreurs lors du chargement de plus de photos
+    
     function handleLoadMoreError(error) {
         console.error('Erreur lors du chargement des photos :', error);
     }

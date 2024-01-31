@@ -264,7 +264,6 @@ body{
     }
 }
 
-
 // Ajout styles pour la section de la liste des photos
 .photo-list-section {
     padding: 40px 0;
@@ -274,17 +273,19 @@ body{
     align-items: center;
 
     .photo-list-container {
-        column-count: 2;
-        column-gap: 20px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        justify-content: center;
 
         .photo-item {
-            margin-bottom:20px;
+            margin-bottom: 20px;
             width: 564px;
             height: 495px;
 
             .photo-image {
-                width: 564px;
-                height: 495px;
+                width: 100%;
+                height: 100%;
                 object-fit: cover;
                 display: block;
                 transition: transform 0.3s ease-in-out;
@@ -295,19 +296,18 @@ body{
             }
         }
     }
-}
 
-.load-more-container {
-    text-align: center;
-    margin-top: 20px;
+    .load-more-container {
+        text-align: center;
+        margin-top: 20px;
 
-    button {
-        background-color: $primary-red;
-        color: #fff;
-        padding: 10px 20px;
-        border: none;
-        cursor: pointer;
-        font-size: 16px;
+        button {
+            background-color: $primary-red;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
     }
 }
-

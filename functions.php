@@ -85,15 +85,9 @@ ini_set('error_log', 'C:/Users/Batis/Local Sites/nathalie-mota/logs/php/error.lo
 
 // Fonction pour charger davantage de photos avec des journaux pour le débogage
 function load_more_photos() {
-    // Vérification du jeton de sécurité
     if (isset($_POST['nonce']) && wp_verify_nonce($_POST['nonce'], 'wp_rest')) {
-        // Ajout de journaux pour le débogage
-        error_log('Requête Ajax réussie pour charger plus de photos. Page actuelle : ' . $_POST['page']);
-
-        // Modification de cette partie pour renvoyer le HTML des nouvelles photos
+        // Modifiez cette partie pour renvoyer le HTML des nouvelles photos
         $html = '';
-
-        // Boucle WP_Query pour récupérer les nouvelles photos
         $args = array(
             'post_type'      => 'photo',
             'posts_per_page' => 8,
@@ -114,13 +108,12 @@ function load_more_photos() {
             $html .= 'Aucune photo trouvée.';
         endif;
 
-        // Retour du HTML des nouvelles photos
         wp_send_json_success($html);
     } else {
-        // Le jeton de sécurité n'est pas valide, gérer la situation en conséquence
-        error_log('Requête Ajax échouée en raison d\'un jeton de sécurité non valide.');
+        error_log('Requête Ajax échouée en raison d\'un nonce non valide.');
         wp_send_json_error('Nonce non valide');
     }
-    
+
     exit();
 }
+

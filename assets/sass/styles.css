@@ -224,10 +224,10 @@ body {
   align-items: center;
 }
 .photo-list-section .photo-list-container {
-  -moz-column-count: 2;
-       column-count: 2;
-  -moz-column-gap: 20px;
-       column-gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  justify-content: center;
 }
 .photo-list-section .photo-list-container .photo-item {
   margin-bottom: 20px;
@@ -235,8 +235,8 @@ body {
   height: 495px;
 }
 .photo-list-section .photo-list-container .photo-item .photo-image {
-  width: 564px;
-  height: 495px;
+  width: 100%;
+  height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
   display: block;
@@ -245,12 +245,11 @@ body {
 .photo-list-section .photo-list-container .photo-item .photo-image:hover {
   transform: scale(1.1);
 }
-
-.load-more-container {
+.photo-list-section .load-more-container {
   text-align: center;
   margin-top: 20px;
 }
-.load-more-container button {
+.photo-list-section .load-more-container button {
   background-color: #E00000;
   color: #fff;
   padding: 10px 20px;
