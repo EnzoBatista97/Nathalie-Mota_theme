@@ -1,5 +1,6 @@
 <?php
-// Ajout de jQuery pour les fonctionnalités dépendantes de JavaScript
+
+// Ajout de jQuery
 function theme_add_jquery() {
     wp_enqueue_script('jquery', 'https://code.jquery.com/jquery-3.6.0.min.js', array(), '3.6.0', true);
 }
@@ -7,19 +8,14 @@ add_action('wp_enqueue_scripts', 'theme_add_jquery');
 
 // Configuration initiale du thème
 function theme_setup() {
-    // Activation des menus WordPress
     add_theme_support('menus');
-
-    // Activation des images mises en avant (thumbnails)
     add_theme_support('post-thumbnails');
 
-    // Définition des tailles d'images personnalisées
     function custom_image_sizes() {
         add_image_size('custom-single-photo', 1200, 800, true);
     }
     add_action('after_setup_theme', 'custom_image_sizes');
 
-    // Enregistrement des emplacements de menus personnalisés
     register_nav_menu('menu-principal-header', __('Menu Header', 'NathalieMota'));
     register_nav_menu('menu-principal-footer', __('Menu Footer', 'NathalieMota'));
 }
@@ -35,7 +31,6 @@ add_theme_support('custom-logo', array(
 
 // Compression des images lors du téléchargement
 function compress_uploaded_images($file) {
-    // Réglage de la qualité de compression JPEG à 82%
     add_filter('jpeg_quality', function ($arg) {
         return 82;
     });
@@ -43,77 +38,208 @@ function compress_uploaded_images($file) {
 }
 add_filter('wp_handle_upload_prefilter', 'compress_uploaded_images');
 
-// Enregistrement des scripts et styles nécessaires
-function theme_scripts_and_styles() {
-    // Inclusion du script personnalisé pour les fonctionnalités front-end
-    wp_enqueue_script('custom-scripts', get_template_directory_uri() . '/assets/js/scripts.js', array('jquery'), null, true);
-
-    // Transmission des paramètres de l'API WordPress au script
-    wp_localize_script('custom-scripts', 'wpApiSettings', array('root' => esc_url_raw(rest_url()), 'nonce' => wp_create_nonce('wp_rest')));
-    wp_localize_script('custom-scripts', 'frontendajax', array('ajaxurl' => admin_url('admin-ajax.php')));
-
-    // Inclusion des scripts et styles d'Ajax de WordPress
-    wp_enqueue_script('jquery');
-    wp_enqueue_script('jquery-form');
-    wp_enqueue_script('wp-api');
-    wp_enqueue_script('custom-scripts', get_template_directory_uri() . '/assets/js/scripts.js', array('jquery'), null, true);
-
-    // Inclusion des styles
-    wp_enqueue_style('styles', get_template_directory_uri() . '/assets/sass/styles.css', array(), '1.0', 'all');
-
-    // Inclusion des polices
-    wp_enqueue_style('fonts', get_template_directory_uri() . '/assets/css/fonts.css');
-}
-add_action('wp_enqueue_scripts', 'theme_scripts_and_styles');
-
-// Vérification du jeton de sécurité (nonce) pour les requêtes AJAX
-function verify_ajax_nonce() {
-    // Vérification de la validité du jeton de sécurité
-    if (isset($_POST['nonce']) && wp_verify_nonce($_POST['nonce'], 'wp_rest')) {
-        // Le jeton est valide, continuer le traitement
-        load_more_photos(); // Appel de la fonction de chargement de plus de photos via AJAX
-    } else {
-        // Le jeton n'est pas valide, gérer la situation en conséquence
-        wp_send_json_error('Nonce non valide');
-    }
-}
-add_action('wp_ajax_load_more_photos', 'verify_ajax_nonce');
-add_action('wp_ajax_nopriv_load_more_photos', 'verify_ajax_nonce');
-
-// Configuration de l'emplacement du fichier journal des erreurs PHP
-ini_set('error_log', 'C:/Users/Batis/Local Sites/nathalie-mota/logs/php/error.log');
-
 // Fonction pour charger davantage de photos avec des journaux pour le débogage
-function load_more_photos() {
+function load_more_photos($args) {
+    $html = '';
+    $query = new WP_Query($args);
+
+    if ($query->have_posts()) :
+        while ($query->have_posts()) : $query->the_post();
+            $html .= '<div class="photo-item">';
+            $html .= '<img src="' . esc_url(get_the_post_thumbnail_url()) . '" alt="' . esc_attr(get_the_title()) . '" class="photo-image">';
+            $html .= '</div>';
+        endwhile;
+        wp_reset_postdata();
+    else :
+        $html .= 'Aucune photo trouvée. Args: ' . print_r($args, true); // Ajout d'informations de débogage
+    endif;
+
+    wp_send_json_success($html);
+}
+
+
+// Action pour charger plus de photos
+function handle_load_more_photos() {
     if (isset($_POST['nonce']) && wp_verify_nonce($_POST['nonce'], 'wp_rest')) {
-        // Modifiez cette partie pour renvoyer le HTML des nouvelles photos
-        $html = '';
         $args = array(
             'post_type'      => 'photo',
             'posts_per_page' => 8,
             'paged'          => $_POST['page'],
         );
 
-        $query = new WP_Query($args);
-
-        if ($query->have_posts()) :
-            while ($query->have_posts()) : $query->the_post();
-                // Structure pour une photo
-                $html .= '<div class="photo-item">';
-                $html .= '<img src="' . esc_url(get_the_post_thumbnail_url()) . '" alt="' . esc_attr(get_the_title()) . '" class="photo-image">';
-                $html .= '</div>';
-            endwhile;
-            wp_reset_postdata();
-        else :
-            $html .= 'Aucune photo trouvée.';
-        endif;
-
-        wp_send_json_success($html);
+        load_more_photos($args);
     } else {
-        error_log('Requête Ajax échouée en raison d\'un nonce non valide.');
         wp_send_json_error('Nonce non valide');
     }
 
     exit();
 }
 
+// Action pour charger des photos par catégorie
+function handle_category_filter() {
+    error_log('Entrée dans handle_category_filter'); // Ajoutez cette ligne
+    $args = array(
+        'post_type'      => 'photo',
+        'posts_per_page' => 8,
+        'paged'          => $_POST['page'],
+    );
+
+    // Ajout de la catégorie sélectionnée à la requête
+    if (isset($_POST['category']) && !empty($_POST['category'])) {
+        $args['tax_query'] = array(
+            array(
+                'taxonomy' => 'categorie',
+                'field'    => 'slug',
+                'terms'    => sanitize_text_field($_POST['category']),
+            ),
+        );
+    }
+
+    $query = new WP_Query($args);
+
+    error_log('Requête SQL : ' . $query->request); // Ajoutez cette ligne
+
+
+    if ($query->have_posts()) {
+        ob_start(); // Capture la sortie
+        while ($query->have_posts()) {
+            $query->the_post();
+            // Affichez ici le contenu de chaque élément, comme vous le faites dans la fonction load_more_photos
+            ?>
+            <div class="photo-item">
+                <img src="<?php echo esc_url(get_the_post_thumbnail_url()); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" class="photo-image">
+            </div>
+            <?php
+        }
+        wp_reset_postdata();
+        $html = ob_get_clean(); // Récupère la sortie capturée
+        wp_send_json_success($html);
+    } else {
+        error_log('Aucune photo trouvée. Args: ' . print_r($args, true));
+    wp_send_json_error('Erreur lors du chargement des photos par catégorie: ' . print_r($args, true));
+    }
+
+    exit();
+}
+function load_photos_by_category() {
+    error_log('Entrée dans load_photos_by_category');
+    $category = isset($_POST['category']) ? sanitize_text_field($_POST['category']) : '';
+    
+    // Ajoutez cette ligne pour loguer la catégorie
+    error_log('Catégorie reçue dans la requête : ' . $category);
+
+    // Assurez-vous que la requête est sécurisée
+    check_ajax_referer('wp_rest', 'nonce');
+
+    $selected_category = sanitize_text_field($_POST['category']);
+    $page = isset($_POST['page']) ? intval($_POST['page']) : 1; // Modification ici
+
+    // Affichez la catégorie sélectionnée dans les logs pour le débogage
+    error_log('Catégorie sélectionnée : ' . $selected_category);
+
+    // Vos arguments de requête WP_Query
+    $args = array(
+        'post_type'      => 'photo',
+        'posts_per_page' => 8,
+        'paged'          => $page,
+    );
+
+    // Si une catégorie est spécifiée, ajoutez la taxonomie à la requête
+    if (!empty($selected_category)) {
+        $args['tax_query'] = array(
+            array(
+                'taxonomy' => 'categorie', // Assurez-vous que 'categorie' correspond à la taxonomie correcte
+                'field'    => 'slug',
+                'terms'    => $selected_category,
+            ),
+        );
+    }
+
+    // Création de l'objet WP_Query
+    $query = new WP_Query($args);
+
+    global $wpdb;
+
+    $categories = get_terms('categorie', array('hide_empty' => false));
+    error_log('Toutes les catégories : ' . print_r($categories, true));
+
+    // Vérifiez si la requête a des résultats
+    if ($query->have_posts()) {
+        // Si des photos sont trouvées, générez le HTML
+        ob_start();
+
+        while ($query->have_posts()) : $query->the_post();
+            // Générez le HTML de chaque photo ici
+            ?>
+            <div class="photo-item">
+                <img src="<?php echo esc_url(get_the_post_thumbnail_url()); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" class="photo-image">
+            </div>
+            <?php
+        endwhile;
+
+        // Renvoyer le HTML généré
+        wp_send_json_success(ob_get_clean());
+    } else {
+        // Si aucune photo n'est trouvée, renvoyer un message d'erreur
+        wp_send_json_error('Aucune photo trouvée.');
+    }
+
+    // N'oubliez pas de réinitialiser les données de la requête
+    wp_reset_postdata();
+}
+
+
+
+// Assurez-vous d'ajouter la fonction à la fois pour les utilisateurs connectés et non connectés
+add_action('wp_ajax_load_photos_by_category', 'load_photos_by_category');
+add_action('wp_ajax_nopriv_load_photos_by_category', 'load_photos_by_category');
+
+
+
+
+// Ajout de la fonction pour les scripts du filtre de catégorie
+function theme_scripts_and_styles_category_filter() {
+    wp_enqueue_script('category-filter-scripts', get_template_directory_uri() . '/assets/js/category-filter-scripts.js', array('jquery'), null, true);
+
+    wp_localize_script('category-filter-scripts', 'wpApiSettings', array('root' => esc_url_raw(rest_url()), 'nonce' => wp_create_nonce('wp_rest')));
+    wp_localize_script('category-filter-scripts', 'frontendajax', array('ajaxurl' => admin_url('admin-ajax.php')));
+
+    // Ajoutez d'autres styles spécifiques au filtre de catégorie si nécessaire
+    // wp_enqueue_style('category-filter-styles', get_template_directory_uri() . '/assets/css/category-filter-styles.css', array(), '1.0', 'all');
+}
+add_action('wp_enqueue_scripts', 'theme_scripts_and_styles_category_filter');
+
+// Enregistrement des scripts et styles nécessaires
+function theme_scripts_and_styles() {
+    wp_enqueue_script('custom-scripts', get_template_directory_uri() . '/assets/js/scripts.js', array('jquery'), null, true);
+
+    wp_localize_script('custom-scripts', 'wpApiSettings', array('root' => esc_url_raw(rest_url()), 'nonce' => wp_create_nonce('wp_rest')));
+    wp_localize_script('custom-scripts', 'frontendajax', array('ajaxurl' => admin_url('admin-ajax.php')));
+
+    wp_enqueue_style('styles', get_template_directory_uri() . '/assets/sass/styles.css', array(), '1.0', 'all');
+    wp_enqueue_style('fonts', get_template_directory_uri() . '/assets/css/fonts.css');
+}
+add_action('wp_enqueue_scripts', 'theme_scripts_and_styles');
+
+// Vérification du jeton de sécurité (nonce) pour les requêtes AJAX
+function verify_ajax_nonce() {
+    if (isset($_POST['nonce']) && wp_verify_nonce($_POST['nonce'], 'wp_rest')) {
+        if (isset($_POST['action']) && $_POST['action'] === 'load_more_photos') {
+            handle_load_more_photos();
+        } elseif (isset($_POST['action']) && $_POST['action'] === 'load_photos_by_category') {
+            handle_category_filter();
+        } else {
+            wp_send_json_error('Action AJAX non valide');
+        }
+    } else {
+        wp_send_json_error('Nonce non valide');
+    }
+}
+
+// Action pour charger plus de photos
+add_action('wp_ajax_load_more_photos', 'verify_ajax_nonce');
+add_action('wp_ajax_nopriv_load_more_photos', 'verify_ajax_nonce');
+
+// Action pour charger des photos par catégorie
+add_action('wp_ajax_load_photos_by_category', 'verify_ajax_nonce');
+add_action('wp_ajax_nopriv_load_photos_by_category', 'verify_ajax_nonce');
