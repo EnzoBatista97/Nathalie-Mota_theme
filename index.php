@@ -25,6 +25,34 @@
     </select>
 </section>
 
+<!-- Filtre de formats -->
+<section class="format-filter-section">
+    <label for="format-filter">Filtrer par format :</label>
+    <select id="format-filter">
+        <option value="">Tous</option>
+        <?php
+        $formats = get_terms(array(
+            'taxonomy' => 'format',
+            'hide_empty' => false,
+        ));
+
+        foreach ($formats as $format) {
+            echo '<option value="' . esc_attr($format->slug) . '">' . esc_html($format->name) . '</option>';
+        }
+        ?>
+    </select>
+</section>
+
+<!-- Champ de tri par date -->
+<section class="date-filter-section">
+    <label for="date-filter">Trier par date :</label>
+    <select id="date-filter">
+        <option value="recent">Plus récentes</option>
+        <option value="old">Plus anciennes</option>
+    </select>
+</section>
+
+
 <?php
 // Arguments pour la requête WP_Query
 $args = array(

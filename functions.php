@@ -57,6 +57,83 @@ function load_more_photos($args) {
     wp_send_json_success($html);
 }
 
+// Fonction pour charger des photos par catégorie et format
+function load_photos_by_category_and_format() {
+    error_log('Entrée dans load_photos_by_category_and_format');
+    
+    // Assurez-vous que la requête est sécurisée
+    check_ajax_referer('wp_rest', 'nonce');
+
+    $selected_category = isset($_POST['category']) ? sanitize_text_field($_POST['category']) : '';
+    $selected_format = isset($_POST['format']) ? sanitize_text_field($_POST['format']) : '';
+    $selected_date_filter = isset($_POST['dateFilter']) ? sanitize_text_field($_POST['dateFilter']) : ''; // Ajout de la gestion du filtre de date
+    $page = isset($_POST['page']) ? intval($_POST['page']) : 1;
+
+    // Vos arguments de requête WP_Query
+    $args = array(
+        'post_type'      => 'photo',
+        'posts_per_page' => 8,
+        'paged'          => $page,
+    );
+
+    // Ajout du filtre de date
+    if (!empty($selected_date_filter)) {
+        $order = ($selected_date_filter === 'recent') ? 'DESC' : 'ASC';
+        $args['orderby'] = 'date';
+        $args['order'] = $order;
+    }
+
+    // Si une catégorie est spécifiée, ajoutez la taxonomie à la requête
+    if (!empty($selected_category)) {
+        $args['tax_query'][] = array(
+            'taxonomy' => 'categorie',
+            'field'    => 'slug',
+            'terms'    => $selected_category,
+        );
+    }
+
+    // Si un format est spécifié, ajoutez la taxonomie à la requête
+    if (!empty($selected_format)) {
+        $args['tax_query'][] = array(
+            'taxonomy' => 'format',
+            'field'    => 'slug',
+            'terms'    => $selected_format,
+        );
+    }
+
+    // Affichez la catégorie, le format et le filtre de date sélectionnés dans les logs pour le débogage
+    error_log('Catégorie sélectionnée : ' . $selected_category);
+    error_log('Format sélectionné : ' . $selected_format);
+    error_log('Filtre de date sélectionné : ' . $selected_date_filter);
+
+    // Création de l'objet WP_Query
+    $query = new WP_Query($args);
+
+    // Vérifiez si la requête a des résultats
+    if ($query->have_posts()) {
+        // Si des photos sont trouvées, générez le HTML
+        ob_start();
+
+        while ($query->have_posts()) : $query->the_post();
+            // Générez le HTML de chaque photo ici
+            ?>
+            <div class="photo-item">
+                <img src="<?php echo esc_url(get_the_post_thumbnail_url()); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" class="photo-image">
+            </div>
+            <?php
+        endwhile;
+
+        // Renvoyer le HTML généré
+        wp_send_json_success(ob_get_clean());
+    } else {
+        // Si aucune photo n'est trouvée, renvoyer un message d'erreur
+        wp_send_json_error('Aucune photo trouvée.');
+    }
+
+    // N'oubliez pas de réinitialiser les données de la requête
+    wp_reset_postdata();
+}
+
 
 // Action pour charger plus de photos
 function handle_load_more_photos() {
@@ -95,10 +172,16 @@ function handle_category_filter() {
         );
     }
 
+    // Ajout du filtre de date
+    if (isset($_POST['dateFilter']) && !empty($_POST['dateFilter'])) {
+        $order = ($_POST['dateFilter'] === 'recent') ? 'DESC' : 'ASC';
+        $args['orderby'] = 'date';
+        $args['order'] = $order;
+    }
+
     $query = new WP_Query($args);
 
     error_log('Requête SQL : ' . $query->request); // Ajoutez cette ligne
-
 
     if ($query->have_posts()) {
         ob_start(); // Capture la sortie
@@ -116,15 +199,17 @@ function handle_category_filter() {
         wp_send_json_success($html);
     } else {
         error_log('Aucune photo trouvée. Args: ' . print_r($args, true));
-    wp_send_json_error('Erreur lors du chargement des photos par catégorie: ' . print_r($args, true));
+        wp_send_json_error('Erreur lors du chargement des photos par catégorie: ' . print_r($args, true));
     }
 
     exit();
 }
+
+// Fonction pour charger des photos par catégorie
 function load_photos_by_category() {
     error_log('Entrée dans load_photos_by_category');
     $category = isset($_POST['category']) ? sanitize_text_field($_POST['category']) : '';
-    
+
     // Ajoutez cette ligne pour loguer la catégorie
     error_log('Catégorie reçue dans la requête : ' . $category);
 
@@ -188,14 +273,13 @@ function load_photos_by_category() {
     wp_reset_postdata();
 }
 
-
-
 // Assurez-vous d'ajouter la fonction à la fois pour les utilisateurs connectés et non connectés
 add_action('wp_ajax_load_photos_by_category', 'load_photos_by_category');
 add_action('wp_ajax_nopriv_load_photos_by_category', 'load_photos_by_category');
 
-
-
+// Assurez-vous d'ajouter la fonction à la fois pour les utilisateurs connectés et non connectés
+add_action('wp_ajax_load_photos_by_category_and_format', 'load_photos_by_category_and_format');
+add_action('wp_ajax_nopriv_load_photos_by_category_and_format', 'load_photos_by_category_and_format');
 
 // Ajout de la fonction pour les scripts du filtre de catégorie
 function theme_scripts_and_styles_category_filter() {
@@ -228,6 +312,8 @@ function verify_ajax_nonce() {
             handle_load_more_photos();
         } elseif (isset($_POST['action']) && $_POST['action'] === 'load_photos_by_category') {
             handle_category_filter();
+        } elseif (isset($_POST['action']) && $_POST['action'] === 'load_photos_by_category_and_format') {
+            load_photos_by_category_and_format();
         } else {
             wp_send_json_error('Action AJAX non valide');
         }
@@ -243,3 +329,7 @@ add_action('wp_ajax_nopriv_load_more_photos', 'verify_ajax_nonce');
 // Action pour charger des photos par catégorie
 add_action('wp_ajax_load_photos_by_category', 'verify_ajax_nonce');
 add_action('wp_ajax_nopriv_load_photos_by_category', 'verify_ajax_nonce');
+
+// Action pour charger des photos par catégorie et format
+add_action('wp_ajax_load_photos_by_category_and_format', 'verify_ajax_nonce');
+add_action('wp_ajax_nopriv_load_photos_by_category_and_format', 'verify_ajax_nonce');
