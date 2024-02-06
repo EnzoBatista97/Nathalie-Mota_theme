@@ -1,129 +1,75 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Récupération des éléments du DOM
+    console.log('Le DOM est chargé.');
+
     const modal = document.getElementById('contact-modal');
+    const overlay = document.getElementById('overlay');
     const closeModalButton = document.querySelector('.close-modal');
-    const openModalButton = document.getElementById('menu-item-34');
-    //const loadMoreButton = document.getElementById('load-more-button');
-    let page = 2;
+    let openModalButtons = [];
 
-    // Récupération de l'élément du filtre de catégorie
-    //const categoryFilter = document.getElementById('category-filter');
+    const headerButton = document.getElementById('menu-item-34');
+    const photoButton = document.querySelector('.cta-contact-button');
+    const photoReferenceField = document.getElementById('your-reference');
 
-    // Gestionnaire d'évènements pour le changement de catégorie
-    //categoryFilter.addEventListener('change', function(){
-        // Réinitialiser la page à 2 lorsqu'une nouvelle catégorie est sélectionnée
-        //page = 2;
+    console.log('headerButton:', headerButton);
+    console.log('photoButton:', photoButton);
 
-        // Récupérer la valeur de la catégorie sélectionnée
-        //const selectedCategory = categoryFilter.value;
-
-        // Effectuer une nouvelle requête Ajex en utilisant la catégories sélectionnée
-       // const data = {
-            //action: 'load_more_photos',
-            //nonce: wpApiSettings.nonce,
-            //page: page,
-            //category: selectedCategory, //Ajout de la catégoie sélectionnée aux données de la requête
-        //};
-
-        //jQuery.ajax({
-           // type: 'POST',
-           // url: frontendajax.ajaxurl,
-            //data: data,
-            //success: handleLoadMoreSuccess,
-            //error: handleLoadMoreError,
-        //});
-    //});
-
-    // Ajout des gestionnaires d'événements
-    openModalButton.addEventListener('click', openModal);
-    closeModalButton.addEventListener('click', closeModal);
-    //loadMoreButton.addEventListener('click', loadMorePhotos);
-
-    // Fonction pour ouvrir la modale
-    function openModal() {
-        console.log('Ouverture de la modale');
-        modal.style.display = 'block';
+    if (headerButton) {
+        openModalButtons.push(headerButton);
+        console.log('Bouton de contact trouvé dans le header.');
     }
 
-    // Fonction pour fermer la modale
-    function closeModal() {
-        console.log('Fermeture de la modale');
-        modal.style.display = 'none';
+    if (photoButton) {
+        openModalButtons.push(photoButton);
+        console.log('Bouton de contact trouvé sur la page de photo.');
     }
 
-    // Fonction pour charger plus de photos via Ajax
-    /*function loadMorePhotos() {
-        console.log('Tentative de chargement de plus de photos. Page actuelle :', page);
-        const data = {
-            action: 'load_more_photos',
-            nonce: wpApiSettings.nonce,
-            page: page,
-        };
+    if (openModalButtons.length > 0) {
+        console.log('Ajout des gestionnaires d\'événements.');
 
-        jQuery.ajax({
-            type: 'POST',
-            url: frontendajax.ajaxurl,
-            data: data,
-            success: handleLoadMoreSuccess,
-            error: handleLoadMoreError,
+        openModalButtons.forEach(button => {
+            button.addEventListener('click', openModal);
+            button.addEventListener('click', function() {
+                console.log('Le bouton de contact a été cliqué !');
+            });
         });
-    }
 
-    // Fonction de succès pour charger plus de photos
-    function handleLoadMoreSuccess(response) {
-        console.log('Réponse Ajax réussie :', response);
+        closeModalButton.addEventListener('click', closeModal);
 
-        const newElements = jQuery.parseHTML(response.data);
-        const photoListContainer = jQuery('.photo-list-container');
+        function openModal(event) {
+            console.log('Ouverture de la modale');
+            event.preventDefault();
 
-        // Vérifier le contenu de la réponse
-        console.log('Contenu de la réponse :', response.data);
+            modal.style.display = 'block';
+            overlay.style.display = 'flex';
 
-        // Vider la liste existante avant d'ajouter les nouvelles photos
-        //photoListContainer.empty();
+            const reference = event.target.getAttribute('data-reference');
 
-        // Ajouter les nouveaux éléments à la fin de la liste existante
-        photoListContainer.append(newElements);
-
-        page++;
-    }
-
-    // Fonction d'erreur lors du chargement de plus de photos
-    function handleLoadMoreError(error) {
-        console.error('Erreur lors du chargement des photos :', error);
-    }*/
-
-    // Gestionnaires d'événements pour fermer la modale au clic à l'extérieur ou en appuyant sur Escape
-    window.addEventListener('click', (event) => {
-        if (event.target === modal) {
-            closeModal();
+            if (photoReferenceField) {
+                photoReferenceField.value = reference;
+                console.log('Valeur du champ de référence:', photoReferenceField.value);
+            }
         }
-    });
 
-    window.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') {
-            closeModal();
+        function closeModal() {
+            console.log('Fermeture de la modale');
+            modal.style.display = 'none';
+            overlay.style.display = 'none';
         }
-    });
 
-    // Gestionnaire d'événements pour charger plus de photos
-    /*loadMoreButton.addEventListener('click', () => {
-        const data = {
-            action: 'load_more_photos',
-            page: page,
-        };
-
-        jQuery.ajax({
-            type: 'POST',
-            url: frontendajax.ajaxurl,
-            data: data,
-            success: (response) => {
-                jQuery('.photo-list-container').append(response);
-                page++;
-            },
-            error: (error) => {
-                console.error('Erreur lors du chargement des photos', error);
-            },
+        window.addEventListener('click', (event) => {
+            if (event.target === overlay) {
+                console.log('Clic à l\'extérieur de la modale, fermeture de la modale.');
+                closeModal();
+            }
         });
-    });*/
+
+        window.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                console.log('Appui sur la touche Escape, fermeture de la modale.');
+                closeModal();
+            }
+        });
+    } else {
+        console.log('Aucun bouton de contact trouvé.');
+    }
 });

@@ -38,8 +38,8 @@ function compress_uploaded_images($file) {
 }
 add_filter('wp_handle_upload_prefilter', 'compress_uploaded_images');
 
-// Fonction pour charger davantage de photos avec des journaux pour le débogage
-function load_more_photos($args) {
+// Fonction générique pour charger des photos
+function load_photos($args) {
     $html = '';
     $query = new WP_Query($args);
 
@@ -106,45 +106,31 @@ function load_photos_by_category_and_format() {
     error_log('Format sélectionné : ' . $selected_format);
     error_log('Filtre de date sélectionné : ' . $selected_date_filter);
 
-    // Création de l'objet WP_Query
-    $query = new WP_Query($args);
-
-    // Vérifiez si la requête a des résultats
-    if ($query->have_posts()) {
-        // Si des photos sont trouvées, générez le HTML
-        ob_start();
-
-        while ($query->have_posts()) : $query->the_post();
-            // Générez le HTML de chaque photo ici
-            ?>
-            <div class="photo-item">
-                <img src="<?php echo esc_url(get_the_post_thumbnail_url()); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" class="photo-image">
-            </div>
-            <?php
-        endwhile;
-
-        // Renvoyer le HTML généré
-        wp_send_json_success(ob_get_clean());
-    } else {
-        // Si aucune photo n'est trouvée, renvoyer un message d'erreur
-        wp_send_json_error('Aucune photo trouvée.');
-    }
-
-    // N'oubliez pas de réinitialiser les données de la requête
-    wp_reset_postdata();
+    // Utilisation de la fonction générique pour charger les photos
+    load_photos($args);
 }
 
-
 // Action pour charger plus de photos
-function handle_load_more_photos() {
+function handle_load_photos() {
     if (isset($_POST['nonce']) && wp_verify_nonce($_POST['nonce'], 'wp_rest')) {
+        $action = isset($_POST['action']) ? $_POST['action'] : '';
         $args = array(
             'post_type'      => 'photo',
             'posts_per_page' => 8,
             'paged'          => $_POST['page'],
         );
 
-        load_more_photos($args);
+        if ($action === 'load_more_photos') {
+            load_photos($args);
+        } elseif ($action === 'load_photos_by_category') {
+            // ... (ajustez les arguments pour la catégorie)
+            load_photos($args);
+        } elseif ($action === 'load_photos_by_category_and_format') {
+            // ... (ajustez les arguments pour la catégorie et le format)
+            load_photos($args);
+        } else {
+            wp_send_json_error('Action AJAX non valide');
+        }
     } else {
         wp_send_json_error('Nonce non valide');
     }
@@ -179,30 +165,8 @@ function handle_category_filter() {
         $args['order'] = $order;
     }
 
-    $query = new WP_Query($args);
-
-    error_log('Requête SQL : ' . $query->request); // Ajoutez cette ligne
-
-    if ($query->have_posts()) {
-        ob_start(); // Capture la sortie
-        while ($query->have_posts()) {
-            $query->the_post();
-            // Affichez ici le contenu de chaque élément, comme vous le faites dans la fonction load_more_photos
-            ?>
-            <div class="photo-item">
-                <img src="<?php echo esc_url(get_the_post_thumbnail_url()); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" class="photo-image">
-            </div>
-            <?php
-        }
-        wp_reset_postdata();
-        $html = ob_get_clean(); // Récupère la sortie capturée
-        wp_send_json_success($html);
-    } else {
-        error_log('Aucune photo trouvée. Args: ' . print_r($args, true));
-        wp_send_json_error('Erreur lors du chargement des photos par catégorie: ' . print_r($args, true));
-    }
-
-    exit();
+    // Utilisation de la fonction générique pour charger les photos
+    load_photos($args);
 }
 
 // Fonction pour charger des photos par catégorie
@@ -240,37 +204,8 @@ function load_photos_by_category() {
         );
     }
 
-    // Création de l'objet WP_Query
-    $query = new WP_Query($args);
-
-    global $wpdb;
-
-    $categories = get_terms('categorie', array('hide_empty' => false));
-    error_log('Toutes les catégories : ' . print_r($categories, true));
-
-    // Vérifiez si la requête a des résultats
-    if ($query->have_posts()) {
-        // Si des photos sont trouvées, générez le HTML
-        ob_start();
-
-        while ($query->have_posts()) : $query->the_post();
-            // Générez le HTML de chaque photo ici
-            ?>
-            <div class="photo-item">
-                <img src="<?php echo esc_url(get_the_post_thumbnail_url()); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" class="photo-image">
-            </div>
-            <?php
-        endwhile;
-
-        // Renvoyer le HTML généré
-        wp_send_json_success(ob_get_clean());
-    } else {
-        // Si aucune photo n'est trouvée, renvoyer un message d'erreur
-        wp_send_json_error('Aucune photo trouvée.');
-    }
-
-    // N'oubliez pas de réinitialiser les données de la requête
-    wp_reset_postdata();
+    // Utilisation de la fonction générique pour charger les photos
+    load_photos($args);
 }
 
 // Assurez-vous d'ajouter la fonction à la fois pour les utilisateurs connectés et non connectés
@@ -296,12 +231,16 @@ add_action('wp_enqueue_scripts', 'theme_scripts_and_styles_category_filter');
 // Enregistrement des scripts et styles nécessaires
 function theme_scripts_and_styles() {
     wp_enqueue_script('custom-scripts', get_template_directory_uri() . '/assets/js/scripts.js', array('jquery'), null, true);
+    wp_enqueue_script('lightbox-script', get_template_directory_uri() . '/assets/js/lightbox.js', array('jquery'), '1.0', true); // Modifié ici
 
     wp_localize_script('custom-scripts', 'wpApiSettings', array('root' => esc_url_raw(rest_url()), 'nonce' => wp_create_nonce('wp_rest')));
     wp_localize_script('custom-scripts', 'frontendajax', array('ajaxurl' => admin_url('admin-ajax.php')));
 
     wp_enqueue_style('styles', get_template_directory_uri() . '/assets/sass/styles.css', array(), '1.0', 'all');
     wp_enqueue_style('fonts', get_template_directory_uri() . '/assets/css/fonts.css');
+
+
+    // ... (ajoutez d'autres styles et scripts si nécessaire)
 }
 add_action('wp_enqueue_scripts', 'theme_scripts_and_styles');
 
@@ -309,7 +248,7 @@ add_action('wp_enqueue_scripts', 'theme_scripts_and_styles');
 function verify_ajax_nonce() {
     if (isset($_POST['nonce']) && wp_verify_nonce($_POST['nonce'], 'wp_rest')) {
         if (isset($_POST['action']) && $_POST['action'] === 'load_more_photos') {
-            handle_load_more_photos();
+            handle_load_photos();
         } elseif (isset($_POST['action']) && $_POST['action'] === 'load_photos_by_category') {
             handle_category_filter();
         } elseif (isset($_POST['action']) && $_POST['action'] === 'load_photos_by_category_and_format') {
@@ -325,11 +264,3 @@ function verify_ajax_nonce() {
 // Action pour charger plus de photos
 add_action('wp_ajax_load_more_photos', 'verify_ajax_nonce');
 add_action('wp_ajax_nopriv_load_more_photos', 'verify_ajax_nonce');
-
-// Action pour charger des photos par catégorie
-add_action('wp_ajax_load_photos_by_category', 'verify_ajax_nonce');
-add_action('wp_ajax_nopriv_load_photos_by_category', 'verify_ajax_nonce');
-
-// Action pour charger des photos par catégorie et format
-add_action('wp_ajax_load_photos_by_category_and_format', 'verify_ajax_nonce');
-add_action('wp_ajax_nopriv_load_photos_by_category_and_format', 'verify_ajax_nonce');

@@ -80,31 +80,21 @@
         </div>
     </div>
 
-    <!--Div du CTA + défilemment des photos-->
+   <!--Div du CTA + défilement des photos-->
+<div class="cta-and-navigation-container">
+    <!--Affichage du CTA-->
     <div class="cta-and-navigation-container">
-
         <!--Affichage du CTA-->
-        <div class="cta-and-navigation-container">
-
-            <!--Affichage du CTA-->
-            <div class="cta-container">    
-                <p>Cette photo vous intéresse ?</p>
-                <button class="cta-contact-button" data-reference="<?php echo esc_attr($reference); ?>">Contact</button>
-            </div>
-        </div>
-        
-        <!--Affichage du défilemment des photos-->
-        <div class="photo-navigation-container">
-            <?php
-                the_post_navigation(
-                    array(
-                        'next_text' => '<p class="meta-nav">' . esc_html__('Next post', 'nathalie-mota-theme-textdomain') . '<span class="meta-nav-arrow">&rarr;</span></p><p class="post-title">%title</p>',
-                        'prev_text' => '<p class="meta-nav"><span class="meta-nav-arrow">&larr;</span>' . esc_html__('Previous post', 'nathalie-mota-theme-textdomain') . '</p><p class="post-title">%title</p>',
-                    )
-                );
-            ?>
+        <div class="cta-container">    
+            <p>Cette photo vous intéresse ?</p>
+            <?php get_template_part('modal-contact');?>
+            <button class="cta-contact-button" data-reference="<?php echo esc_attr($reference); ?>">Contact</button>
         </div>
     </div>
-</section>
+</div>
+
 
 <?php get_footer();?>
+
+<!-- Inclusion du script JavaScript -->
+<script src="<?php echo get_template_directory_uri() . '/assets/js/scripts.js'; ?>"></script>
