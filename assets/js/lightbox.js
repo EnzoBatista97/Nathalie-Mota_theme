@@ -12,41 +12,77 @@
         photoItems = document.querySelectorAll('.photo-item');
         const lightboxPrev = document.getElementById('lightbox-prev');
         const lightboxNext = document.getElementById('lightbox-next');
+        const lightboxCloseButton = document.getElementById('lightbox-close'); // Ajout du bouton de fermeture
 
-        if (!lightboxPrev || !lightboxNext) {
+        if (!lightboxPrev || !lightboxNext || !lightboxCloseButton) { // Modification ici pour inclure le bouton de fermeture
             console.error('Elements not found. Aborting initLightbox.');
             return;
         }
 
+        // Ajout du gestionnaire d'événements au bouton de fermeture
+        lightboxCloseButton.addEventListener('click', closeLightbox);
+
         photoItems.forEach((photoItem, index) => {
             // Récupérer la légende de chaque photo
             const caption = photoItem.querySelector('.photo-image').alt;
-            lightboxCaptions.push(caption); // Modifier la référence à la variable ici
+            lightboxCaptions.push(caption);
 
-            photoItem.addEventListener('click', () => openLightbox(index));
+            // Ajouter un gestionnaire d'événement au clic sur l'image pour ouvrir la lightbox
+            photoItem.addEventListener('click', (event) => openLightbox(index));
+
+            // Ajouter un gestionnaire d'événement au clic sur l'icône plein écran
+            const fullscreenIcon = photoItem.querySelector('.fullscreen-icon');
+            if (fullscreenIcon) {
+                fullscreenIcon.addEventListener('click', (event) => {
+                    event.preventDefault(); // Empêcher le comportement par défaut du lien
+                    // Trouver l'index de la photo correspondante
+                    const index = Array.from(photoItems).indexOf(photoItem);
+                    openLightbox(index);
+                });
+            }
         });
 
         lightboxPrev.addEventListener('click', showPrevPhoto);
         lightboxNext.addEventListener('click', showNextPhoto);
+
+        // Ajout du gestionnaire d'événements pour la touche "Échap"
+        document.addEventListener('keyup', function(event) {
+            if (event.key === "Escape") {
+                closeLightbox();
+            }
+        });
     }
 
+
     function openLightbox(index) {
+        console.log('Opening lightbox for index:', index);
         currentPhotoIndex = index;
         updateLightboxContent();
         document.getElementById('lightbox-overlay').style.display = 'block';
     }
 
     function closeLightbox() {
+        console.log('Closing lightbox');
         document.getElementById('lightbox-overlay').style.display = 'none';
     }
 
     function updateLightboxContent() {
         const lightboxImage = document.getElementById('lightbox-image');
-        const lightboxInfo = document.getElementById('lightbox-info');
-
-        lightboxImage.src = photoItems[currentPhotoIndex].querySelector('img').src;
-        lightboxInfo.textContent = lightboxCaptions[currentPhotoIndex]; // Modifier la référence à la variable ici
+        const lightboxReference = document.getElementById('lightbox-reference');
+        const lightboxCategory = document.getElementById('lightbox-category');
+    
+        const photoItem = photoItems[currentPhotoIndex];
+        const reference = photoItem.querySelector('.photo-reference').textContent;
+        const category = photoItem.querySelector('.photo-category').textContent;
+    
+        lightboxImage.src = photoItem.querySelector('img').src;
+        lightboxReference.textContent = reference;
+        lightboxCategory.textContent = category;
     }
+    
+    
+    
+    
 
     function showPrevPhoto() {
         if (currentPhotoIndex > 0) {

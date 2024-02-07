@@ -75,18 +75,33 @@ if ($query->have_posts()) :
     <!-- Liste des photos -->
     <section class="photo-list-section">
         <div class="photo-list-container">
-            <?php
-            while ($query->have_posts()) : $query->the_post();
-                echo '<div class="photo-item">';
-                echo '<a href="' . esc_url(get_permalink()) . '">';
-                echo '<img src="' . esc_url(get_the_post_thumbnail_url()) . '" alt="' . esc_attr(get_the_title()) . '" class="photo-image">';
-                echo '<span class="photo-info-icon"><i class="fas fa-eye"></i></span>';
-                echo '</a>';
-                echo '<span class="fullscreen-icon"><i class="fas fa-expand"></i></span>';
-                echo '</div>';
-            endwhile;
-            wp_reset_postdata();
-            ?>
+            <?php while ($query->have_posts()) : $query->the_post(); ?>
+                <div class="photo-item">
+                    <a href="<?php echo esc_url(get_permalink()); ?>">
+                        <img src="<?php echo esc_url(get_the_post_thumbnail_url()); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" class="photo-image">
+                        <span class="icon-container">
+                            <span class="photo-reference">
+                                <?php $reference = get_post_meta(get_the_ID(), 'Référence', true);
+                                    if ($reference) {
+                                        echo esc_html($reference);
+                                    } 
+                                ?>
+                            </span>
+                            <span class="photo-category">
+                                <?php
+                                    $categories = get_the_terms(get_the_ID(), 'categorie');
+                                    if ($categories) {
+                                        echo esc_html($categories[0]->name);
+                                    }
+                                ?>
+                            </span>
+                            <span class="photo-info-icon"><i class="fas fa-eye"></i></span>
+                            <span class="fullscreen-icon"><i class="fas fa-expand fullscreen-icon"></i></span>
+                        </span>
+                    </a>
+                </div>
+            <?php endwhile;
+            wp_reset_postdata(); ?>
         </div>
 
         <!-- Bouton "Charger plus" pour la pagination infinie -->
@@ -97,22 +112,7 @@ if ($query->have_posts()) :
 
 
 
-
-<!-- Rétablissez le lien vers lightbox.js -->
-<script src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/js/lightbox.js"></script>
-
-    <!-- Lightbox -->
-    <div id="lightbox-overlay"></div>
-<div id="lightbox">
-    <span id="lightbox-prev">&lt;</span>
-    <img id="lightbox-image" src="" alt="">
-    <span id="lightbox-next">&gt;</span>
-    <p id="lightbox-info"></p>
-    <span id="lightbox-close" onclick="closeLightbox()">×</span>
-</div>
-
-<?php
-else :
+<?php else :
     echo 'Aucune photo trouvée.';
 endif;
 
