@@ -133,7 +133,6 @@ body {
 }
 .photo-details-section .photo-container {
   display: flex;
-  height: 844px;
   gap: 21px;
   justify-content: center;
 }
@@ -166,7 +165,7 @@ body {
   width: 50%;
 }
 .photo-details-section .photo-container .photo-image-container img {
-  height: 844px;
+  height: 100%;
   width: 100%;
 }
 .photo-details-section .cta-and-navigation-container {
@@ -185,11 +184,14 @@ body {
 }
 
 .hero-section {
-  background: url("../images/Photo header.png") center/cover no-repeat;
   height: 966px;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
 }
 .hero-section h1 {
   -webkit-text-fill-color: transparent;

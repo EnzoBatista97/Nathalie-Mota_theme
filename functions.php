@@ -61,7 +61,7 @@ function load_photos($args) {
 function load_photos_by_category_and_format() {
     error_log('Entrée dans load_photos_by_category_and_format');
     
-    // Assurez-vous que la requête est sécurisée
+    // Assure que la requête est sécurisée
     check_ajax_referer('wp_rest', 'nonce');
 
     $selected_category = isset($_POST['category']) ? sanitize_text_field($_POST['category']) : '';
@@ -69,7 +69,7 @@ function load_photos_by_category_and_format() {
     $selected_date_filter = isset($_POST['dateFilter']) ? sanitize_text_field($_POST['dateFilter']) : ''; // Ajout de la gestion du filtre de date
     $page = isset($_POST['page']) ? intval($_POST['page']) : 1;
 
-    // Vos arguments de requête WP_Query
+    //arguments de requête WP_Query
     $args = array(
         'post_type'      => 'photo',
         'posts_per_page' => 8,
@@ -83,7 +83,7 @@ function load_photos_by_category_and_format() {
         $args['order'] = $order;
     }
 
-    // Si une catégorie est spécifiée, ajoutez la taxonomie à la requête
+    // Si une catégorie est spécifiée, ajoute la taxonomie à la requête
     if (!empty($selected_category)) {
         $args['tax_query'][] = array(
             'taxonomy' => 'categorie',
@@ -92,7 +92,7 @@ function load_photos_by_category_and_format() {
         );
     }
 
-    // Si un format est spécifié, ajoutez la taxonomie à la requête
+    // Si un format est spécifié, ajoute la taxonomie à la requête
     if (!empty($selected_format)) {
         $args['tax_query'][] = array(
             'taxonomy' => 'format',
@@ -101,7 +101,7 @@ function load_photos_by_category_and_format() {
         );
     }
 
-    // Affichez la catégorie, le format et le filtre de date sélectionnés dans les logs pour le débogage
+    // Affiche la catégorie, le format et le filtre de date sélectionnés dans les logs pour le débogage
     error_log('Catégorie sélectionnée : ' . $selected_category);
     error_log('Format sélectionné : ' . $selected_format);
     error_log('Filtre de date sélectionné : ' . $selected_date_filter);
@@ -123,10 +123,10 @@ function handle_load_photos() {
         if ($action === 'load_more_photos') {
             load_photos($args);
         } elseif ($action === 'load_photos_by_category') {
-            // ... (ajustez les arguments pour la catégorie)
+
             load_photos($args);
         } elseif ($action === 'load_photos_by_category_and_format') {
-            // ... (ajustez les arguments pour la catégorie et le format)
+
             load_photos($args);
         } else {
             wp_send_json_error('Action AJAX non valide');
@@ -140,7 +140,7 @@ function handle_load_photos() {
 
 // Action pour charger des photos par catégorie
 function handle_category_filter() {
-    error_log('Entrée dans handle_category_filter'); // Ajoutez cette ligne
+    error_log('Entrée dans handle_category_filter');
     $args = array(
         'post_type'      => 'photo',
         'posts_per_page' => 8,
@@ -174,30 +174,30 @@ function load_photos_by_category() {
     error_log('Entrée dans load_photos_by_category');
     $category = isset($_POST['category']) ? sanitize_text_field($_POST['category']) : '';
 
-    // Ajoutez cette ligne pour loguer la catégorie
+    // Ajout pour loguer la catégorie
     error_log('Catégorie reçue dans la requête : ' . $category);
 
-    // Assurez-vous que la requête est sécurisée
+    // Assure que la requête est sécurisée
     check_ajax_referer('wp_rest', 'nonce');
 
     $selected_category = sanitize_text_field($_POST['category']);
-    $page = isset($_POST['page']) ? intval($_POST['page']) : 1; // Modification ici
+    $page = isset($_POST['page']) ? intval($_POST['page']) : 1;
 
-    // Affichez la catégorie sélectionnée dans les logs pour le débogage
+    // Affiche la catégorie sélectionnée dans les logs pour le débogage
     error_log('Catégorie sélectionnée : ' . $selected_category);
 
-    // Vos arguments de requête WP_Query
+    // arguments de requête WP_Query
     $args = array(
         'post_type'      => 'photo',
         'posts_per_page' => 8,
         'paged'          => $page,
     );
 
-    // Si une catégorie est spécifiée, ajoutez la taxonomie à la requête
+    // Si une catégorie est spécifiée, ajoute la taxonomie à la requête
     if (!empty($selected_category)) {
         $args['tax_query'] = array(
             array(
-                'taxonomy' => 'categorie', // Assurez-vous que 'categorie' correspond à la taxonomie correcte
+                'taxonomy' => 'categorie',
                 'field'    => 'slug',
                 'terms'    => $selected_category,
             ),
@@ -208,11 +208,11 @@ function load_photos_by_category() {
     load_photos($args);
 }
 
-// Assurez-vous d'ajouter la fonction à la fois pour les utilisateurs connectés et non connectés
+// ajoute la fonction à la fois pour les utilisateurs connectés et non connectés
 add_action('wp_ajax_load_photos_by_category', 'load_photos_by_category');
 add_action('wp_ajax_nopriv_load_photos_by_category', 'load_photos_by_category');
 
-// Assurez-vous d'ajouter la fonction à la fois pour les utilisateurs connectés et non connectés
+// ajoute la fonction à la fois pour les utilisateurs connectés et non connectés
 add_action('wp_ajax_load_photos_by_category_and_format', 'load_photos_by_category_and_format');
 add_action('wp_ajax_nopriv_load_photos_by_category_and_format', 'load_photos_by_category_and_format');
 
@@ -222,9 +222,6 @@ function theme_scripts_and_styles_category_filter() {
 
     wp_localize_script('category-filter-scripts', 'wpApiSettings', array('root' => esc_url_raw(rest_url()), 'nonce' => wp_create_nonce('wp_rest')));
     wp_localize_script('category-filter-scripts', 'frontendajax', array('ajaxurl' => admin_url('admin-ajax.php')));
-
-    // Ajoutez d'autres styles spécifiques au filtre de catégorie si nécessaire
-    // wp_enqueue_style('category-filter-styles', get_template_directory_uri() . '/assets/css/category-filter-styles.css', array(), '1.0', 'all');
 }
 add_action('wp_enqueue_scripts', 'theme_scripts_and_styles_category_filter');
 
@@ -238,9 +235,6 @@ function theme_scripts_and_styles() {
 
     wp_enqueue_style('styles', get_template_directory_uri() . '/assets/sass/styles.css', array(), '1.0', 'all');
     wp_enqueue_style('fonts', get_template_directory_uri() . '/assets/css/fonts.css');
-
-
-    // ... (ajoutez d'autres styles et scripts si nécessaire)
 }
 add_action('wp_enqueue_scripts', 'theme_scripts_and_styles');
 

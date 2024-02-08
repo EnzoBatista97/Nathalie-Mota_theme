@@ -1,14 +1,13 @@
 <nav id="site-navigation-footer" class="main-navigation">
-	<?php
-		wp_nav_menu(array(
-			'theme_location' => 'menu-principal-footer',
-			'menu_id' => 'primary-menu-footer',
-		));
-	?>
-	<p class="rights-reserved">TOUS DROITS RÉSERVÉS</p>
+    <?php
+        wp_nav_menu(array(
+            'theme_location' => 'menu-principal-footer',
+            'menu_id' => 'primary-menu-footer',
+        ));
+    ?>
+    <p class="rights-reserved">TOUS DROITS RÉSERVÉS</p>
 </nav>
 
-<!-- Rétablissez le lien vers lightbox.js -->
 <script src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/js/lightbox.js"></script>
 
 <div id="lightbox-overlay">
@@ -24,9 +23,5 @@
     </div>
 </div>
 
-
-
-
 </body>
 </html>
-

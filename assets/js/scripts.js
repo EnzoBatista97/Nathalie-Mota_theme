@@ -56,19 +56,22 @@ document.addEventListener('DOMContentLoaded', function () {
             overlay.style.display = 'none';
         }
 
-        window.addEventListener('click', (event) => {
+        window.addEventListener('click', closeOnOutsideClick);
+        window.addEventListener('keydown', closeOnEscapeKey);
+
+        function closeOnOutsideClick(event) {
             if (event.target === overlay) {
                 console.log('Clic à l\'extérieur de la modale, fermeture de la modale.');
                 closeModal();
             }
-        });
+        }
 
-        window.addEventListener('keydown', (event) => {
+        function closeOnEscapeKey(event) {
             if (event.key === 'Escape') {
                 console.log('Appui sur la touche Escape, fermeture de la modale.');
                 closeModal();
             }
-        });
+        }
     } else {
         console.log('Aucun bouton de contact trouvé.');
     }

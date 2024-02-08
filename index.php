@@ -1,7 +1,25 @@
 <?php get_header(); ?>
 
-<!-- Hero Section -->
-<section class="hero-section">
+<?php
+// Récupérer une image aléatoire depuis votre catalogue de photos
+$args = array(
+    'post_type'      => 'photo',
+    'posts_per_page' => 1,
+    'orderby'        => 'rand', // Obtenir une image aléatoire
+);
+
+$query = new WP_Query($args);
+
+if ($query->have_posts()) :
+    while ($query->have_posts()) : $query->the_post();
+        $random_image_url = get_the_post_thumbnail_url();
+    endwhile;
+    wp_reset_postdata();
+endif;
+?>
+
+<!-- Hero Section avec l'image aléatoire -->
+<section class="hero-section" style="background-image: url('<?php echo esc_url($random_image_url); ?>');">
     <h1>PHOTOGRAPHE EVENT</h1>
 </section>
 

@@ -167,7 +167,6 @@ body {
 
     .photo-container {
         display: flex;
-        height: 844px;
         gap: 21px;
         justify-content: center;
 
@@ -203,8 +202,9 @@ body {
         .photo-image-container {
             width: 50%;
 
+
             img {
-                height: 844px;
+                height: 100%;
                 width: 100%;
             }
         }
@@ -230,11 +230,14 @@ body {
 
 // Styles pour la section hero
 .hero-section {
-    background: url('../images/Photo header.png') center/cover no-repeat;
     height: 966px;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
 
     h1 {
         -webkit-text-fill-color: transparent;
@@ -250,6 +253,8 @@ body {
         margin: 0 auto;
     }
 }
+
+
 
 // Styles pour la section des filtres
 .filters-section {
@@ -337,7 +342,6 @@ body {
     color: #fff;
     font-size: 14px;
     z-index: 1001; /* Mettre au-dessus de l'overlay */
-
 }
 
 
