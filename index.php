@@ -120,8 +120,6 @@ if ($query->have_posts()) :
         </div>
     </section>
 
-
-
 <?php else :
     echo 'Aucune photo trouvée.';
 endif;
