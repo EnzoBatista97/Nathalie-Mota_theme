@@ -51,7 +51,7 @@ function load_photos($args) {
         endwhile;
         wp_reset_postdata();
     else :
-        $html .= 'Aucune photo trouvée. Args: ' . print_r($args, true); // Ajout d'informations de débogage
+        $html .= 'Aucune photo trouvée.';
     endif;
 
     wp_send_json_success($html);
@@ -59,8 +59,6 @@ function load_photos($args) {
 
 // Fonction pour charger des photos par catégorie et format
 function load_photos_by_category_and_format() {
-    error_log('Entrée dans load_photos_by_category_and_format');
-    
     // Assure que la requête est sécurisée
     check_ajax_referer('wp_rest', 'nonce');
 
@@ -101,11 +99,6 @@ function load_photos_by_category_and_format() {
         );
     }
 
-    // Affiche la catégorie, le format et le filtre de date sélectionnés dans les logs pour le débogage
-    error_log('Catégorie sélectionnée : ' . $selected_category);
-    error_log('Format sélectionné : ' . $selected_format);
-    error_log('Filtre de date sélectionné : ' . $selected_date_filter);
-
     // Utilisation de la fonction générique pour charger les photos
     load_photos($args);
 }
@@ -118,18 +111,23 @@ function handle_load_photos() {
             'post_type'      => 'photo',
             'posts_per_page' => 8,
             'paged'          => $_POST['page'],
+            'category_name'  => isset($_POST['category']) ? sanitize_text_field($_POST['category']) : '',
+            'format'         => isset($_POST['format']) ? sanitize_text_field($_POST['format']) : '',
+            'dateFilter'     => isset($_POST['dateFilter']) ? sanitize_text_field($_POST['dateFilter']) : '',
         );
 
-        if ($action === 'load_more_photos') {
-            load_photos($args);
-        } elseif ($action === 'load_photos_by_category') {
-
-            load_photos($args);
-        } elseif ($action === 'load_photos_by_category_and_format') {
-
-            load_photos($args);
+        // Si le tri par date est sélectionné
+        if (!empty($args['dateFilter'])) {
+            // Si c'est le chargement initial, ne pas modifier l'ordre des photos
+            if ($args['paged'] === 1) {
+                load_photos($args);
+            } else {
+                // Pour les chargements supplémentaires, inverser l'ordre pour obtenir les plus anciennes en premier
+                $args['order'] = ($args['dateFilter'] === 'recent') ? 'DESC' : 'ASC';
+                load_photos($args);
+            }
         } else {
-            wp_send_json_error('Action AJAX non valide');
+            load_photos($args);
         }
     } else {
         wp_send_json_error('Nonce non valide');
@@ -140,7 +138,6 @@ function handle_load_photos() {
 
 // Action pour charger des photos par catégorie
 function handle_category_filter() {
-    error_log('Entrée dans handle_category_filter');
     $args = array(
         'post_type'      => 'photo',
         'posts_per_page' => 8,
@@ -171,20 +168,11 @@ function handle_category_filter() {
 
 // Fonction pour charger des photos par catégorie
 function load_photos_by_category() {
-    error_log('Entrée dans load_photos_by_category');
-    $category = isset($_POST['category']) ? sanitize_text_field($_POST['category']) : '';
-
-    // Ajout pour loguer la catégorie
-    error_log('Catégorie reçue dans la requête : ' . $category);
-
     // Assure que la requête est sécurisée
     check_ajax_referer('wp_rest', 'nonce');
 
     $selected_category = sanitize_text_field($_POST['category']);
     $page = isset($_POST['page']) ? intval($_POST['page']) : 1;
-
-    // Affiche la catégorie sélectionnée dans les logs pour le débogage
-    error_log('Catégorie sélectionnée : ' . $selected_category);
 
     // arguments de requête WP_Query
     $args = array(
@@ -208,13 +196,13 @@ function load_photos_by_category() {
     load_photos($args);
 }
 
-// ajoute la fonction à la fois pour les utilisateurs connectés et non connectés
-add_action('wp_ajax_load_photos_by_category', 'load_photos_by_category');
-add_action('wp_ajax_nopriv_load_photos_by_category', 'load_photos_by_category');
-
-// ajoute la fonction à la fois pour les utilisateurs connectés et non connectés
+// Ajoutez les fonctions avec les noms corrects
 add_action('wp_ajax_load_photos_by_category_and_format', 'load_photos_by_category_and_format');
 add_action('wp_ajax_nopriv_load_photos_by_category_and_format', 'load_photos_by_category_and_format');
+
+// Ajoutez les fonctions avec les noms corrects
+add_action('wp_ajax_load_more_photos', 'handle_load_photos');
+add_action('wp_ajax_nopriv_load_more_photos', 'handle_load_photos');
 
 // Ajout de la fonction pour les scripts du filtre de catégorie
 function theme_scripts_and_styles_category_filter() {

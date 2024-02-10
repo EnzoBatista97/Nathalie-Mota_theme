@@ -76,15 +76,7 @@ $args = array(
     'posts_per_page' => 8,
 );
 
-if (isset($_GET['categorie']) && !empty($_GET['categorie'])) {
-    $args['tax_query'] = array(
-        array(
-            'taxonomy' => 'categorie',
-            'field'    => 'slug',
-            'terms'    => sanitize_text_field($_GET['categorie']),
-        ),
-    );
-}
+
 
 $query = new WP_Query($args);
 
