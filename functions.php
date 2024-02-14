@@ -217,7 +217,6 @@ add_action('wp_enqueue_scripts', 'theme_scripts_and_styles_category_filter');
 function theme_scripts_and_styles() {
     wp_enqueue_script('custom-scripts', get_template_directory_uri() . '/assets/js/scripts.js', array('jquery'), null, true);
     wp_enqueue_script('lightbox-script', get_template_directory_uri() . '/assets/js/lightbox.js', array('jquery'), '1.0', true); // Modifié ici
-    wp_enqueue_script('photo-navigation', get_template_directory_uri() . '/assets/js/photo-navigation.js', array('jquery'), null, true); // Ajout du nouveau script pour la navigation entre les photos
 
     wp_localize_script('custom-scripts', 'wpApiSettings', array('root' => esc_url_raw(rest_url()), 'nonce' => wp_create_nonce('wp_rest')));
     wp_localize_script('custom-scripts', 'frontendajax', array('ajaxurl' => admin_url('admin-ajax.php')));

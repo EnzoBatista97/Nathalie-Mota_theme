@@ -25,50 +25,57 @@ endif;
 
 <section class="filter-section">
     <!-- Filtre de catégories -->
-    <section class="category-filter-section">
-        <label for="category-filter">CATÉGORIES</label>
-        <select id="category-filter">
-            <option value="">Toutes</option>
-            <?php
-            $categories = get_terms(array(
-                'taxonomy' => 'categorie',
-                'hide_empty' => false,
-            ));
+    <section class="filter-container category-filter-section">
+        <label class="filter-label" for="category-filter">CATÉGORIES</label>
+        <div class="custom-select">
+            <select class="filter-select" id="category-filter">
+                <option value="">Toutes</option>
+                <?php
+                $categories = get_terms(array(
+                    'taxonomy' => 'categorie',
+                    'hide_empty' => false,
+                ));
 
-            foreach ($categories as $category) {
-                echo '<option value="' . esc_attr($category->slug) . '">' . esc_html($category->name) . '</option>';
-            }
-            ?>
-        </select>
+                foreach ($categories as $category) {
+                    echo '<option value="' . esc_attr($category->slug) . '">' . esc_html($category->name) . '</option>';
+                }
+                ?>
+            </select>
+        </div>
     </section>
 
     <!-- Filtre de formats -->
-    <section class="format-filter-section">
-        <label for="format-filter">FORMATS</label>
-        <select id="format-filter">
-            <option value="">Tous</option>
-            <?php
-            $formats = get_terms(array(
-                'taxonomy' => 'format',
-                'hide_empty' => false,
-            ));
+    <section class="filter-container format-filter-section">
+        <label class="filter-label" for="format-filter">FORMATS</label>
+        <div class="custom-select">
+            <select class="filter-select" id="format-filter">
+                <option value="">Tous</option>
+                <?php
+                $formats = get_terms(array(
+                    'taxonomy' => 'format',
+                    'hide_empty' => false,
+                ));
 
-            foreach ($formats as $format) {
-                echo '<option value="' . esc_attr($format->slug) . '">' . esc_html($format->name) . '</option>';
-            }
-            ?>
-        </select>
+                foreach ($formats as $format) {
+                    echo '<option value="' . esc_attr($format->slug) . '">' . esc_html($format->name) . '</option>';
+                }
+                ?>
+            </select>
+        </div>
     </section>
 
     <!-- Champ de tri par date -->
-    <section class="date-filter-section">
-        <label for="date-filter">TRIER PAR :</label>
-        <select id="date-filter">
-            <option value="recent">Plus récentes</option>
-            <option value="old">Plus anciennes</option>
-        </select>
+    <section class="filter-container date-filter-section">
+        <label class="filter-label" for="date-filter">TRIER PAR :</label>
+        <div class="custom-select">
+            <select class="filter-select" id="date-filter">
+                <option value="recent">Plus récentes</option>
+                <option value="old">Plus anciennes</option>
+            </select>
+        </div>
     </section>
 </section>
+
 
 <?php
 $args = array(

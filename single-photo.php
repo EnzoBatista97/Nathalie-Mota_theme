@@ -119,7 +119,7 @@
 
 <!-- Section des photos apparentées -->
 <section class="related-photos-section">
-    <h2>VOUS AIMEREZ AUSSI</h2>
+    <h3>VOUS AIMEREZ AUSSI</h3>
     <div class="related-photos-container">
         <?php
         // Récupérer la catégorie de la photo actuelle
@@ -149,20 +149,40 @@
                 while ($related_query->have_posts()) {
                     $related_query->the_post();
                     ?>
-<div class="related-photo-thumbnail">
+<div class="related-photo-thumbnail photo-item"> <!-- Ajoutez la classe photo-item ici -->
     <a href="<?php the_permalink(); ?>">
         <?php
         // Récupérer l'URL de l'image mise en avant de la photo apparentée
         $thumbnail_url = get_the_post_thumbnail_url(get_the_ID());
         if ($thumbnail_url) {
-            echo '<img src="' . esc_url($thumbnail_url) . '" alt="' . esc_attr(get_the_title()) . '" class="photo-thumbnail" />';
+            echo '<img src="' . esc_url($thumbnail_url) . '" alt="' . esc_attr(get_the_title()) . '" class="photo-thumbnail photo-image" />'; // Ajoutez la classe photo-image
         } else {
             // Afficher une image de remplacement si aucune miniature n'est disponible
-            echo '<img src="' . esc_url(get_template_directory_uri() . '/images/placeholder.jpg') . '" alt="Placeholder Image" class="photo-thumbnail" />';
+            echo '<img src="' . esc_url(get_template_directory_uri() . '/images/placeholder.jpg') . '" alt="Placeholder Image" class="photo-thumbnail photo-image" />'; // Ajoutez la classe photo-image
         }
         ?>
+<span class="icon-container">
+                            <span class="photo-reference">
+                                <?php $reference = get_post_meta(get_the_ID(), 'Référence', true);
+                                    if ($reference) {
+                                        echo esc_html($reference);
+                                    } 
+                                ?>
+                            </span>
+                            <span class="photo-category">
+                                <?php
+                                    $categories = get_the_terms(get_the_ID(), 'categorie');
+                                    if ($categories) {
+                                        echo esc_html($categories[0]->name);
+                                    }
+                                ?>
+                            </span>
+                            <span class="photo-info-icon"><i class="fas fa-eye"></i></span>
+                            <span class="fullscreen-icon"><i class="fas fa-expand fullscreen-icon"></i></span>
+                        </span> 
     </a>
 </div>
+
 
                     <?php
                 }

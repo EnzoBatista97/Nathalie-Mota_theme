@@ -34,6 +34,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  border-top: 1px solid #000;
 }
 #site-navigation-footer ul {
   list-style: none;
@@ -178,9 +179,35 @@ body {
   align-items: center;
   gap: 96px;
 }
+.photo-details-section .cta-and-navigation-container .cta-container .cta-contact-button {
+  display: flex;
+  width: 272px;
+  height: 50px;
+  border: none;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+  background: #D8D8D8;
+  box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
+  font-family: "Space Mono";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  cursor: pointer;
+}
+.photo-details-section .cta-and-navigation-container .cta-container .cta-contact-button:hover {
+  color: #FFF;
+  background: #000;
+  box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
+}
 .photo-details-section .cta-and-navigation-container .cta-container p {
   font-family: "Poppins", sans-serif;
   font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  margin: 0px;
 }
 
 .photo-navigation {
@@ -210,13 +237,77 @@ body {
 }
 
 .related-photos-section {
-  margin-top: 40px;
+  margin-top: 70px;
+  /* Styles pour la référence de la photo */
+  /* Styles pour la catégorie de la photo */
+}
+.related-photos-section h3 {
+  margin-top: 0px;
+  margin-bottom: 52px;
+  margin-left: 145px;
+  font-family: "Space Mono";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+}
+.related-photos-section .icon-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+.related-photos-section .photo-item:hover .icon-container {
+  display: flex;
+  gap: 0px;
+  background-color: rgba(0, 0, 0, 0.5); /* Couleur de l'overlay semi-transparente */
+}
+.related-photos-section .photo-info-icon {
+  font-size: 24px;
+  color: #fff;
+  cursor: pointer;
+  margin: auto;
+}
+.related-photos-section .fullscreen-icon {
+  font-size: 24px;
+  color: #fff;
+  cursor: pointer;
+}
+.related-photos-section .photo-reference {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: #FFF;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: uppercase;
+}
+.related-photos-section .photo-category {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: #FFF;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: uppercase;
 }
 
 .related-photos-container {
   display: flex;
   justify-content: center;
   gap: 20px;
+  height: 495px;
+  margin-bottom: 109px;
 }
 
 .related-photo-thumbnail {
@@ -264,23 +355,19 @@ body {
   margin: 0 auto;
 }
 
-.filters-section {
+.filter-section {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
 }
-.filters-section .filter-container {
+.filter-section .filter-container {
   display: flex;
   align-items: center;
 }
-.filters-section .filter-label {
+.filter-section .filter-label {
   margin-right: 10px;
   font-size: 16px;
-}
-.filters-section .filter-select {
-  padding: 8px;
-  font-size: 14px;
 }
 
 #lightbox-overlay {
@@ -290,7 +377,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8); /* Fond noir transparent à 80% */
+  background: rgba(0, 0, 0, 0.6);
   z-index: 1000;
 }
 
@@ -344,7 +431,13 @@ body {
   justify-content: space-between;
   margin-top: 5px;
   color: #fff;
+  font-family: "Space Mono";
   font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
   z-index: 1001; /* Mettre au-dessus de l'overlay */
 }
 
@@ -388,7 +481,7 @@ body {
 .photo-list-section .photo-item:hover .icon-container {
   display: flex;
   gap: 0px;
-  background-color: rgba(0, 0, 0, 0.5); /* Couleur de l'overlay semi-transparente */
+  background-color: rgba(0, 0, 0, 0.6);
 }
 .photo-list-section .photo-info-icon {
   font-size: 24px;
@@ -405,29 +498,46 @@ body {
   position: absolute;
   bottom: 10px;
   left: 10px;
-  color: #fff;
+  color: #FFF;
+  font-family: Poppins;
   font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: uppercase;
 }
 .photo-list-section .photo-category {
   position: absolute;
   bottom: 10px;
   right: 10px;
-  color: #fff;
+  color: #FFF;
+  font-family: Poppins;
   font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: uppercase;
 }
 .photo-list-section .load-more-container {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 .photo-list-section .load-more-container button {
-  background-color: #E00000;
-  color: #fff;
-  padding: 10px 20px;
+  width: 272px;
+  height: 50px;
+  background-color: #D8D8D8;
+  color: #000;
+  border-radius: 2px;
   border: none;
+  box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
   cursor: pointer;
-  font-size: 16px;
+  font-size: 12px;
+  font-weight: 400;
+  font-family: "Space Mono";
 }
-
-.filter-section {
-  display: flex;
+.photo-list-section .load-more-container button:hover {
+  color: white;
+  background: #000;
+  box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
 }/*# sourceMappingURL=styles.css.map */
