@@ -5,13 +5,14 @@ body {
 }
 
 #site-navigation-header {
-  display: flex;
   align-items: center;
-  justify-content: center;
   margin: 0 146px;
 }
 #site-navigation-header .logo {
   margin-right: auto;
+  margin-top: 31px;
+  margin-bottom: 35px;
+  margin-left: 0px;
 }
 #site-navigation-header .logo img {
   width: 216px;
@@ -21,6 +22,7 @@ body {
   list-style: none;
   display: flex;
   gap: 45px;
+  margin-top: 28px;
 }
 #site-navigation-header ul a {
   text-decoration: none;
@@ -30,6 +32,48 @@ body {
   font-size: 16px;
 }
 
+.burger-menu {
+  display: flex;
+}
+
+.burger-menu-btn {
+  display: none;
+}
+
+@media screen and (max-width: 950px) {
+  #site-navigation-header {
+    position: relative;
+  }
+  .logo {
+    margin-top: 31.5px;
+    margin-bottom: 35px;
+  }
+  .burger-menu {
+    /* ACTIVE BURGER MENU STYLE */
+  }
+  .burger-menu .burger-menu-btn {
+    display: block;
+    border: none;
+    background-color: white;
+    padding-top: 26.576px;
+    width: 27.415px;
+    height: 18.848px;
+  }
+  .burger-menu .main-menu {
+    display: none;
+    position: absolute;
+  }
+  .burger-menu .burger-menu-btn.active ~ .main-menu {
+    display: flex;
+    background: #E00000;
+    width: 100%;
+    height: 740px;
+  }
+  .burger-menu .burger-menu-btn.active ~ .main-menu ul {
+    display: flex;
+    flex-direction: column;
+  }
+}
 #site-navigation-footer {
   display: flex;
   justify-content: center;
@@ -337,8 +381,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  overflow: hidden;
   background-size: cover;
   background-position: center;
 }
