@@ -1,18 +1,19 @@
 <?php get_header(); ?>
 
 <?php
-// Récupérer une image aléatoire depuis votre catalogue de photos
+
+// Récupére une image aléatoire depuis le catalogue de photos
 $args = array(
     'post_type'      => 'photo',
     'posts_per_page' => 1,
-    'orderby'        => 'rand', // Obtenir une image aléatoire
+    'orderby'        => 'rand',
 );
 
 $query = new WP_Query($args);
 
 if ($query->have_posts()) :
     while ($query->have_posts()) : $query->the_post();
-        $random_image_url = get_the_post_thumbnail_url();
+    $random_image_url = wp_get_attachment_image_src(get_post_thumbnail_id(), 'hero')[0];
     endwhile;
     wp_reset_postdata();
 endif;
@@ -40,8 +41,8 @@ endif;
                 ));
 
                 foreach ($categories as $category) {
-                    $label = get_field('label', $category); // Supposons que le libellé est stocké dans un champ personnalisé nommé 'label'
-                    $label = $label ? $label : $category->name; // Utiliser le nom de la taxonomie s'il n'y a pas de libellé personnalisé
+                    $label = get_field('label', $category);
+                    $label = $label ? $label : $category->name;
                     echo '<li data-value="' . esc_attr($category->slug) . '" data-label="' . esc_attr($label) . '">' . esc_html($label) . '</li>';
                 }
                 ?>
@@ -63,8 +64,8 @@ endif;
                 ));
 
                 foreach ($formats as $format) {
-                    $label = get_field('label', $format); // Supposons que le libellé est stocké dans un champ personnalisé nommé 'label'
-                    $label = $label ? $label : $format->name; // Utiliser le nom de la taxonomie s'il n'y a pas de libellé personnalisé
+                    $label = get_field('label', $format);
+                    $label = $label ? $label : $format->name;
                     echo '<li data-value="' . esc_attr($format->slug) . '" data-label="' . esc_attr($label) . '">' . esc_html($label) . '</li>';
                 }
                 ?>
@@ -101,7 +102,8 @@ if ($query->have_posts()) :
             <?php while ($query->have_posts()) : $query->the_post(); ?>
                 <div class="photo-item">
                     <a href="<?php echo esc_url(get_permalink()); ?>">
-                        <img src="<?php echo esc_url(get_the_post_thumbnail_url()); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" class="photo-image">
+                    <img src="<?php echo esc_url(wp_get_attachment_image_url(get_post_thumbnail_id(), 'desktop-home')); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" class="photo-image">
+
                         <span class="icon-container">
                             <span class="photo-reference">
                                 <?php $reference = get_post_meta(get_the_ID(), 'Référence', true);

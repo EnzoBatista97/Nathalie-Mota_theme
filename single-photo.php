@@ -72,7 +72,7 @@
             <div class="photo-item">
                 <?php
                     // Affichage de l'image mise en avant
-                    $image_url = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), 'large');
+                    $image_url = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), 'single');
                     if ($image_url) {
                         echo '<img src="' . esc_url($image_url[0]) . '" alt="' . esc_attr(get_the_title()) . '" class="photo-image" />';
                     }
@@ -106,15 +106,19 @@
 
 
     </div>
-    <!--Ajout des flèches de navigation-->
-        <div class="photo-navigation">
-            <?php if (get_next_post_link()): ?>
-                <div class="nav-next"><?php next_post_link('%link', '<span class="screen-reader-text">' . __('Next Photo', 'textdomain') . '</span>'); ?></div>
-            <?php endif; ?>
-            <?php if (get_previous_post_link()): ?>
-                <div class="nav-previous"><?php previous_post_link('%link', '<span class="screen-reader-text">' . __('Previous Photo', 'textdomain') . '</span>'); ?></div>
-            <?php endif; ?>
+<!--Ajout des flèches de navigation-->
+<div class="photo-navigation">
+    <?php if (get_next_post_link()): ?>
+        <div class="nav-next">
+            <?php next_post_link('%link', '<img src="' . esc_url(get_template_directory_uri() . '/assets/images/icones/Arrow left.svg') . '" alt="' . __('Next Photo', 'textdomain') . '"><span class="screen-reader-text">' . __('Next Photo', 'textdomain') . '</span>'); ?>
         </div>
+    <?php endif; ?>
+    <?php if (get_previous_post_link()): ?>
+        <div class="nav-previous">
+            <?php previous_post_link('%link', '<img src="' . esc_url(get_template_directory_uri() . '/assets/images/icones/Arrow right.svg') . '" alt="' . __('Previous Photo', 'textdomain') . '"><span class="screen-reader-text">' . __('Previous Photo', 'textdomain') . '</span>'); ?>
+        </div>
+    <?php endif; ?>
+</div>
 </section>
 
 <!-- Section des photos apparentées -->

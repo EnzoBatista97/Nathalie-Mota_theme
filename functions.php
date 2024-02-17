@@ -10,11 +10,24 @@ add_action('wp_enqueue_scripts', 'theme_add_jquery');
 function theme_setup() {
     add_theme_support('menus');
     add_theme_support('post-thumbnails');
+    set_post_thumbnail_size(600, 0, false); // Taille des images mises en avant
 
-    function custom_image_sizes() {
-        add_image_size('custom-single-photo', 1200, 800, true);
+    add_image_size('hero', 1450, 960, true); // Taille pour le héros
+    add_image_size('desktop-home', 600, 520, true); // Taille pour le bureau (accueil)
+    add_image_size('lightbox', 1300, 900, true); // Taille pour la lightbox
+    add_image_size('single', 700, 850, true); 
+
+    // Supprimer les tailles d'images non utilisées
+    function remove_unused_image_sizes() {
+        remove_image_size('thumbnail');
+        remove_image_size('medium');
+        remove_image_size('medium_large');
+        remove_image_size('large');
     }
-    add_action('after_setup_theme', 'custom_image_sizes');
+    add_action('init', 'remove_unused_image_sizes');
+
+    // Optimiser la qualité de compression JPEG
+    add_filter('jpeg_quality', function($arg){return 80;});
 
     register_nav_menu('menu-principal-header', __('Menu Header', 'NathalieMota'));
     register_nav_menu('menu-principal-footer', __('Menu Footer', 'NathalieMota'));
@@ -29,14 +42,6 @@ add_theme_support('custom-logo', array(
     'flex-width'  => true,
 ));
 
-// Compression des images lors du téléchargement
-function compress_uploaded_images($file) {
-    add_filter('jpeg_quality', function ($arg) {
-        return 82;
-    });
-    return $file;
-}
-add_filter('wp_handle_upload_prefilter', 'compress_uploaded_images');
 
 // Fonction générique pour charger des photos
 function load_photos($args) {
