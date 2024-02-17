@@ -1,30 +1,28 @@
 document.addEventListener('DOMContentLoaded', function initialize() {
-    const categoryFilter = document.getElementById('category-filter');
-    const formatFilter = document.getElementById('format-filter');
-    const dateFilter = document.getElementById('date-filter');
+    //Déclaration des constantes et variables
+    const categoryDropdown = document.getElementById('category-dropdown');
+    const formatDropdown = document.getElementById('format-dropdown');
+    const dateDropdown = document.getElementById('date-dropdown');
     const loadMoreButton = document.getElementById('load-more-button');
-    let selectedCategory = categoryFilter.value;
-    let selectedFormat = formatFilter.value;
-    let selectedDate = dateFilter.value;
-    let page = 2;
-
-    if (!categoryFilter || !formatFilter || !dateFilter) {
-        console.error('Éléments #category-filter et/ou #format-filter et/ou #date-filter introuvables. Assurez-vous que votre HTML est correct.');
-        return;
-    }
-
-    // Ajouter les écouteurs d'événements pour les filtres
-    categoryFilter.addEventListener('change', handleFilterChange);
-    formatFilter.addEventListener('change', handleFilterChange);
-    dateFilter.addEventListener('change', handleFilterChange);
-    loadMoreButton.addEventListener('click', handleLoadPhotos);
+    let selectedCategory = '';
+    let selectedFormat = '';
+    let selectedDate = '';
+    let page = 1;
 
     // Fonction de changement de filtre
-    function handleFilterChange() {
-        selectedCategory = categoryFilter.value;
-        selectedFormat = formatFilter.value;
-        selectedDate = dateFilter.value;
-        page = 2;
+    function handleFilterChange(selectedValue, dropdownType) {
+        switch(dropdownType) {
+            case 'category':
+                selectedCategory = selectedValue;
+                break;
+            case 'format':
+                selectedFormat = selectedValue;
+                break;
+            case 'date':
+                selectedDate = selectedValue;
+                break;
+        }
+        page = 1;
         console.log('Filtre changé :', selectedCategory, selectedFormat, selectedDate);
         loadPhotosByCategoryAndFormat();
     }
@@ -130,30 +128,67 @@ document.addEventListener('DOMContentLoaded', function initialize() {
         console.error('Erreur lors du chargement supplémentaire de photos :', error);
     }
 
-    // Fonction pour attacher les écouteurs d'événements aux options des sélecteurs
-    function attachEventListenersToOptions() {
-        document.querySelectorAll('.filter-select option').forEach(option => {
-            option.addEventListener('mouseover', handleOptionHover);
-            option.addEventListener('mouseout', handleOptionHover);
-            option.addEventListener('click', handleOptionActive);
+// Fonction pour gérer les états spécifiques de l'élément sélectionné
+function handleDropdownItemStates(dropdownList, dropdownType) {
+    const dropdownToggle = dropdownList.parentElement.querySelector('.dropdown-toggle');
+
+    dropdownList.querySelectorAll('li').forEach(item => {
+        // Gestion de l'effet au survol
+        item.addEventListener('mouseenter', function() {
+            item.style.backgroundColor = '#FFD6D6'; // background lors du survol
+        });
+        item.addEventListener('mouseleave', function() {
+            item.style.backgroundColor = ''; // Retour au background par défaut
+        });
+
+        // Gestion de l'effet lors du clic
+        item.addEventListener('mousedown', function() {
+            item.style.backgroundColor = '#FE5858'; // background lors du clic
+        });
+        item.addEventListener('mouseup', function() {
+            item.style.backgroundColor = ''; // Retour au background par défaut après le clic
+        });
+
+        // Gestion de la sélection
+        item.addEventListener('click', function() {
+            const selectedValue = item.getAttribute('data-value');
+            const selectedLabel = item.getAttribute('data-label'); // Récupérer la valeur de l'attribut data-label
+            dropdownToggle.textContent = selectedLabel; // Afficher le label dans le rectangle
+            handleFilterChange(selectedValue, dropdownType);
+            dropdownList.querySelectorAll('li').forEach(item => {
+                item.classList.remove('selected'); // Supprimer la classe 'selected' de tous les éléments
+            });
+            item.classList.add('selected'); // Ajouter la classe 'selected' à l'élément sélectionné
+            dropdownList.classList.remove('show');
+        });
+    });
+}
+
+
+
+
+    // Fonction pour créer les dropdowns personnalisés
+    function createCustomDropdown(dropdownElement, dropdownType) {
+        const dropdownToggle = dropdownElement.querySelector('.dropdown-toggle');
+        const dropdownList = dropdownElement.querySelector('.dropdown-list');
+
+        dropdownToggle.addEventListener('click', function() {
+            dropdownList.classList.toggle('show');
+        });
+
+        handleDropdownItemStates(dropdownList, dropdownType); // Appeler la fonction pour gérer les états spécifiques des éléments
+
+        // Fermer la dropdown si on clique en dehors
+        document.addEventListener('click', function(e) {
+            if (!dropdownElement.contains(e.target)) {
+                dropdownList.classList.remove('show');
+            }
         });
     }
 
-    // Appeler la fonction pour attacher les écouteurs d'événements aux options
-    attachEventListenersToOptions();
+    createCustomDropdown(categoryDropdown, 'category');
+    createCustomDropdown(formatDropdown, 'format');
+    createCustomDropdown(dateDropdown, 'date');
 
-    // Fonction pour gérer le style au survol des options
-    function handleOptionHover(event) {
-        // Ajouter ou supprimer la classe 'hover' en fonction de l'état hover
-        event.target.classList.toggle('hover', event.type === 'mouseover');
-    }
-
-    // Fonction pour gérer le style lors de la sélection d'une option
-    function handleOptionActive(event) {
-        // Ajouter la classe 'selected' à l'option sélectionnée lors de la pression
-        document.querySelectorAll('.filter-select option').forEach(option => {
-            option.classList.remove('selected');
-        });
-        event.target.classList.add('selected');
-    }
+    loadMoreButton.addEventListener('click', handleLoadPhotos);
 });

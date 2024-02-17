@@ -2,7 +2,7 @@
 
 // Ajout de jQuery
 function theme_add_jquery() {
-    wp_enqueue_script('jquery', 'https://code.jquery.com/jquery-3.6.0.min.js', array(), '3.6.0', true);
+    wp_enqueue_script('jquery', 'https://code.jquery.com/jquery-3.7.1.min.js', array(), '3.7.1', true);
 }
 add_action('wp_enqueue_scripts', 'theme_add_jquery');
 

@@ -40,40 +40,6 @@ body {
   display: none;
 }
 
-@media screen and (max-width: 950px) {
-  #site-navigation-header {
-    position: relative;
-  }
-  .logo {
-    margin-top: 31.5px;
-    margin-bottom: 35px;
-  }
-  .burger-menu {
-    /* ACTIVE BURGER MENU STYLE */
-  }
-  .burger-menu .burger-menu-btn {
-    display: block;
-    border: none;
-    background-color: white;
-    padding-top: 26.576px;
-    width: 27.415px;
-    height: 18.848px;
-  }
-  .burger-menu .main-menu {
-    display: none;
-    position: absolute;
-  }
-  .burger-menu .burger-menu-btn.active ~ .main-menu {
-    display: flex;
-    background: #E00000;
-    width: 100%;
-    height: 740px;
-  }
-  .burger-menu .burger-menu-btn.active ~ .main-menu ul {
-    display: flex;
-    flex-direction: column;
-  }
-}
 #site-navigation-footer {
   display: flex;
   justify-content: center;
@@ -582,4 +548,126 @@ body {
   color: white;
   background: #000;
   box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
+}
+
+@media screen and (max-width: 1150px) {
+  body {
+    max-width: auto;
+  }
+  #site-navigation-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  #site-navigation-header .logo {
+    margin-top: 32px;
+    margin-bottom: 31px;
+    margin-left: 0px;
+  }
+  #site-navigation-header .logo img {
+    width: 138px;
+    height: 9px;
+  }
+  #site-navigation-header .main-menu {
+    display: none;
+  }
+  #site-navigation-header .burger-menu {
+    width: 100%;
+    gap: 129px;
+    /* ACTIVE BURGER MENU STYLE */
+  }
+  #site-navigation-header .burger-menu .burger-menu-btn {
+    display: block;
+    border: none;
+    background-color: white;
+    padding-top: 26.576px;
+    padding-right: 0px;
+    padding-left: 0px;
+    width: 27.415px;
+    height: 18.848px;
+  }
+  #site-navigation-header .burger-menu .main-menu {
+    position: absolute;
+    width: 100%;
+    top: 100%;
+    justify-content: center;
+    align-items: center;
+    display: none;
+  }
+  #site-navigation-header .burger-menu .main-menu .menu-menu-header-container ul li a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFF !important;
+    text-align: center !important;
+    font-family: "Space Mono" !important;
+    font-size: 44px !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: normal !important;
+    text-transform: uppercase !important;
+  }
+  #site-navigation-header .burger-menu .burger-menu-btn.active ~ .main-menu {
+    display: flex;
+    background: #E00000;
+    width: 100%;
+    height: 740px;
+  }
+  #site-navigation-header .burger-menu .burger-menu-btn.active ~ .main-menu ul {
+    display: flex;
+    flex-direction: column;
+  }
+}
+/* Styles pour la dropdown personnalisée */
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-toggle {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.dropdown-list {
+  position: absolute;
+  top: calc(100% + 5px); /* positionner juste en dessous du bouton */
+  left: 0;
+  z-index: 1;
+  display: none;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
+.dropdown-list.show { /* Ajouter la classe .show pour afficher la liste déroulante */
+  display: block;
+}
+
+.dropdown-list li {
+  padding: 8px 16px;
+}
+
+/* Effet au survol */
+.dropdown-list li:hover {
+  background-color: #FFD6D6; /* background lors du survol */
+}
+
+/* Effet lors du clic */
+.dropdown-list li:active {
+  background-color: #FE5858; /* background lors du clic */
+}
+
+/* Effet pour l'élément sélectionné */
+.dropdown-list li.selected {
+  background-color: #E00000; /* background de l'élément sélectionné */
+}
+
+.selected {
+  background-color: #E00000; /* Couleur de fond lorsque l'élément est sélectionné */
 }/*# sourceMappingURL=styles.css.map */

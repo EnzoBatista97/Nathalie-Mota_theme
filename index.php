@@ -25,11 +25,12 @@ endif;
 
 <section class="filter-section">
     <!-- Filtre de catégories -->
-    <section class="filter-container category-filter-section">
+    <div class="filter-container category-filter-section">
         <label class="filter-label" for="category-filter">CATÉGORIES</label>
-        <div class="custom-select">
-            <select class="filter-select" id="category-filter">
-                <option value="">Toutes</option>
+        <div class="custom-dropdown" id="category-dropdown">
+            <button class="dropdown-toggle">Toutes</button>
+            <ul class="dropdown-list">
+                <li data-value="" data-label="Toutes">Toutes</li>
                 <?php
                 $categories = get_terms(array(
                     'taxonomy' => 'categorie',
@@ -37,19 +38,20 @@ endif;
                 ));
 
                 foreach ($categories as $category) {
-                    echo '<option value="' . esc_attr($category->slug) . '">' . esc_html($category->name) . '</option>';
+                    echo '<li data-value="' . esc_attr($category->slug) . '" data-label="' . esc_attr($category->name) . '">' . esc_html($category->name) . '</li>';
                 }
                 ?>
-            </select>
+            </ul>
         </div>
-    </section>
+    </div>
 
     <!-- Filtre de formats -->
-    <section class="filter-container format-filter-section">
+    <div class="filter-container format-filter-section">
         <label class="filter-label" for="format-filter">FORMATS</label>
-        <div class="custom-select">
-            <select class="filter-select" id="format-filter">
-                <option value="">Tous</option>
+        <div class="custom-dropdown" id="format-dropdown">
+            <button class="dropdown-toggle">Tous</button>
+            <ul class="dropdown-list">
+                <li data-value="" data-label="Tous">Tous</li>
                 <?php
                 $formats = get_terms(array(
                     'taxonomy' => 'format',
@@ -57,24 +59,27 @@ endif;
                 ));
 
                 foreach ($formats as $format) {
-                    echo '<option value="' . esc_attr($format->slug) . '">' . esc_html($format->name) . '</option>';
+                    echo '<li data-value="' . esc_attr($format->slug) . '" data-label="' . esc_attr($format->name) . '">' . esc_html($format->name) . '</li>';
                 }
                 ?>
-            </select>
+            </ul>
         </div>
-    </section>
+    </div>
 
     <!-- Champ de tri par date -->
-    <section class="filter-container date-filter-section">
+    <div class="filter-container date-filter-section">
         <label class="filter-label" for="date-filter">TRIER PAR :</label>
-        <div class="custom-select">
-            <select class="filter-select" id="date-filter">
-                <option value="recent">Plus récentes</option>
-                <option value="old">Plus anciennes</option>
-            </select>
+        <div class="custom-dropdown" id="date-dropdown">
+            <button class="dropdown-toggle">Plus récentes</button>
+            <ul class="dropdown-list">
+                <li data-value="recent" data-label="Plus récentes">Plus récentes</li>
+                <li data-value="old" data-label="Plus anciennes">Plus anciennes</li>
+            </ul>
         </div>
-    </section>
+    </div>
 </section>
+
+
 
 
 <?php
