@@ -46,7 +46,25 @@ function load_photos($args) {
     if ($query->have_posts()) :
         while ($query->have_posts()) : $query->the_post();
             $html .= '<div class="photo-item">';
+            $html .= '<a href="' . esc_url(get_permalink()) . '">';
             $html .= '<img src="' . esc_url(get_the_post_thumbnail_url()) . '" alt="' . esc_attr(get_the_title()) . '" class="photo-image">';
+            $html .= '<span class="icon-container">';
+            $html .= '<span class="photo-reference">';
+            $reference = get_post_meta(get_the_ID(), 'Référence', true);
+            if ($reference) {
+                $html .= esc_html($reference);
+            }
+            $html .= '</span>';
+            $html .= '<span class="photo-category">';
+            $categories = get_the_terms(get_the_ID(), 'categorie');
+            if ($categories) {
+                $html .= esc_html($categories[0]->name);
+            }
+            $html .= '</span>';
+            $html .= '<span class="photo-info-icon"><i class="fas fa-eye"></i></span>';
+            $html .= '<span class="fullscreen-icon"><i class="fas fa-expand fullscreen-icon"></i></span>';
+            $html .= '</span>';
+            $html .= '</a>';
             $html .= '</div>';
         endwhile;
         wp_reset_postdata();

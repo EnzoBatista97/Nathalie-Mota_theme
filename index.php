@@ -28,7 +28,9 @@ endif;
     <div class="filter-container category-filter-section">
         <label class="filter-label" for="category-filter">CATÉGORIES</label>
         <div class="custom-dropdown" id="category-dropdown">
-            <button class="dropdown-toggle">Toutes</button>
+    <!-- HTML -->
+    <button class="dropdown-toggle"><i class="fas fa-chevron-down"></i> CATÉGORIES</button>
+
             <ul class="dropdown-list">
                 <li data-value="" data-label="Toutes">Toutes</li>
                 <?php
@@ -38,7 +40,9 @@ endif;
                 ));
 
                 foreach ($categories as $category) {
-                    echo '<li data-value="' . esc_attr($category->slug) . '" data-label="' . esc_attr($category->name) . '">' . esc_html($category->name) . '</li>';
+                    $label = get_field('label', $category); // Supposons que le libellé est stocké dans un champ personnalisé nommé 'label'
+                    $label = $label ? $label : $category->name; // Utiliser le nom de la taxonomie s'il n'y a pas de libellé personnalisé
+                    echo '<li data-value="' . esc_attr($category->slug) . '" data-label="' . esc_attr($label) . '">' . esc_html($label) . '</li>';
                 }
                 ?>
             </ul>
@@ -49,7 +53,7 @@ endif;
     <div class="filter-container format-filter-section">
         <label class="filter-label" for="format-filter">FORMATS</label>
         <div class="custom-dropdown" id="format-dropdown">
-            <button class="dropdown-toggle">Tous</button>
+            <button class="dropdown-toggle"><i class="fas fa-chevron-down"></i> FORMATS</button>
             <ul class="dropdown-list">
                 <li data-value="" data-label="Tous">Tous</li>
                 <?php
@@ -59,7 +63,9 @@ endif;
                 ));
 
                 foreach ($formats as $format) {
-                    echo '<li data-value="' . esc_attr($format->slug) . '" data-label="' . esc_attr($format->name) . '">' . esc_html($format->name) . '</li>';
+                    $label = get_field('label', $format); // Supposons que le libellé est stocké dans un champ personnalisé nommé 'label'
+                    $label = $label ? $label : $format->name; // Utiliser le nom de la taxonomie s'il n'y a pas de libellé personnalisé
+                    echo '<li data-value="' . esc_attr($format->slug) . '" data-label="' . esc_attr($label) . '">' . esc_html($label) . '</li>';
                 }
                 ?>
             </ul>
@@ -68,9 +74,9 @@ endif;
 
     <!-- Champ de tri par date -->
     <div class="filter-container date-filter-section">
-        <label class="filter-label" for="date-filter">TRIER PAR :</label>
+        <label class="filter-label" for="date-filter">TRIER PAR </label>
         <div class="custom-dropdown" id="date-dropdown">
-            <button class="dropdown-toggle">Plus récentes</button>
+            <button class="dropdown-toggle"><i class="fas fa-chevron-down"></i> TRIER PAR</button>
             <ul class="dropdown-list">
                 <li data-value="recent" data-label="Plus récentes">Plus récentes</li>
                 <li data-value="old" data-label="Plus anciennes">Plus anciennes</li>
@@ -79,16 +85,11 @@ endif;
     </div>
 </section>
 
-
-
-
 <?php
 $args = array(
     'post_type'      => 'photo',
     'posts_per_page' => 8,
 );
-
-
 
 $query = new WP_Query($args);
 

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function initialize() {
-    //Déclaration des constantes et variables
+    // Déclaration des constantes et variables
     const categoryDropdown = document.getElementById('category-dropdown');
     const formatDropdown = document.getElementById('format-dropdown');
     const dateDropdown = document.getElementById('date-dropdown');
@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function initialize() {
     let selectedCategory = '';
     let selectedFormat = '';
     let selectedDate = '';
-    let page = 1;
+    let page = 2;
 
     // Fonction de changement de filtre
     function handleFilterChange(selectedValue, dropdownType) {
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function initialize() {
                 selectedDate = selectedValue;
                 break;
         }
-        page = 1;
+        page = 2;
         console.log('Filtre changé :', selectedCategory, selectedFormat, selectedDate);
         loadPhotosByCategoryAndFormat();
     }
@@ -63,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function initialize() {
                 const newHtml = response.data;
                 const photoListContainer = document.querySelector('.photo-list-section .photo-list-container');
                 photoListContainer.innerHTML = newHtml.trim() !== '' ? newHtml : console.error('La réponse Ajax a renvoyé un contenu vide.');
+                addHoverEffectToPhotos(); // Réappliquer les écouteurs d'événements de survol
             } else {
                 console.error('La réponse Ajax ne contient pas de données valides.');
             }
@@ -115,6 +116,7 @@ document.addEventListener('DOMContentLoaded', function initialize() {
             const photoListContainer = document.querySelector('.photo-list-section .photo-list-container');
             photoListContainer.innerHTML += newHtml.trim() !== '' ? newHtml : console.error('La réponse Ajax a renvoyé un contenu vide.');
             page++;
+            addHoverEffectToPhotos(); // Réappliquer les écouteurs d'événements de survol
         } else {
             console.error('Erreur lors du chargement des photos :', response.data);
             if (response.data && response.data.message) {
@@ -128,44 +130,25 @@ document.addEventListener('DOMContentLoaded', function initialize() {
         console.error('Erreur lors du chargement supplémentaire de photos :', error);
     }
 
-// Fonction pour gérer les états spécifiques de l'élément sélectionné
-function handleDropdownItemStates(dropdownList, dropdownType) {
-    const dropdownToggle = dropdownList.parentElement.querySelector('.dropdown-toggle');
+    // Fonction pour gérer les états spécifiques de l'élément sélectionné
+    function handleDropdownItemStates(dropdownList, dropdownType) {
+        const dropdownToggle = dropdownList.parentElement.querySelector('.dropdown-toggle');
 
-    dropdownList.querySelectorAll('li').forEach(item => {
-        // Gestion de l'effet au survol
-        item.addEventListener('mouseenter', function() {
-            item.style.backgroundColor = '#FFD6D6'; // background lors du survol
-        });
-        item.addEventListener('mouseleave', function() {
-            item.style.backgroundColor = ''; // Retour au background par défaut
-        });
-
-        // Gestion de l'effet lors du clic
-        item.addEventListener('mousedown', function() {
-            item.style.backgroundColor = '#FE5858'; // background lors du clic
-        });
-        item.addEventListener('mouseup', function() {
-            item.style.backgroundColor = ''; // Retour au background par défaut après le clic
-        });
-
-        // Gestion de la sélection
-        item.addEventListener('click', function() {
-            const selectedValue = item.getAttribute('data-value');
-            const selectedLabel = item.getAttribute('data-label'); // Récupérer la valeur de l'attribut data-label
-            dropdownToggle.textContent = selectedLabel; // Afficher le label dans le rectangle
-            handleFilterChange(selectedValue, dropdownType);
-            dropdownList.querySelectorAll('li').forEach(item => {
-                item.classList.remove('selected'); // Supprimer la classe 'selected' de tous les éléments
+        dropdownList.querySelectorAll('li').forEach(item => {
+            // Gestion de la sélection
+            item.addEventListener('click', function() {
+                const selectedValue = item.getAttribute('data-value');
+                const selectedLabel = item.getAttribute('data-label'); // Récupérer la valeur de l'attribut data-label
+                dropdownToggle.textContent = selectedLabel; // Afficher le label dans le rectangle
+                handleFilterChange(selectedValue, dropdownType);
+                dropdownList.querySelectorAll('li').forEach(item => {
+                    item.classList.remove('selected'); // Supprimer la classe 'selected' de tous les éléments
+                });
+                item.classList.add('selected'); // Ajouter la classe 'selected' à l'élément sélectionné
+                dropdownList.classList.remove('show');
             });
-            item.classList.add('selected'); // Ajouter la classe 'selected' à l'élément sélectionné
-            dropdownList.classList.remove('show');
         });
-    });
-}
-
-
-
+    }
 
     // Fonction pour créer les dropdowns personnalisés
     function createCustomDropdown(dropdownElement, dropdownType) {
@@ -186,9 +169,27 @@ function handleDropdownItemStates(dropdownList, dropdownType) {
         });
     }
 
+    // Fonction pour ajouter les écouteurs d'événements de survol aux éléments de la liste des photos
+    function addHoverEffectToPhotos() {
+        document.querySelectorAll('.photo-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.classList.add('hovered');
+            });
+
+            item.addEventListener('mouseleave', function() {
+                this.classList.remove('hovered');
+            });
+        });
+    }
+
+    // Ajouter les écouteurs d'événements de survol aux photos initiales
+    addHoverEffectToPhotos();
+
+    // Créer les dropdowns personnalisés
     createCustomDropdown(categoryDropdown, 'category');
     createCustomDropdown(formatDropdown, 'format');
     createCustomDropdown(dateDropdown, 'date');
 
+    // Ajouter un écouteur d'événement pour le bouton "Charger plus"
     loadMoreButton.addEventListener('click', handleLoadPhotos);
 });

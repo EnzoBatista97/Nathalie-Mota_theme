@@ -12,755 +12,1511 @@ $gray: #C4C4C4;
 body {
     margin: auto;
     max-width: 1440px;
-}
 
-// HEADER
-#site-navigation-header {
-    align-items: center;
-    margin: 0 146px;
-
-    .logo {
-        margin-right: auto;
-        margin-top: 31px;
-        margin-bottom: 35px;
-        margin-left: 0px;
-
-        img {
-            width: 216px;
-            height: 14px;
-        }
-    }
-
-    ul {
-        list-style: none;
-        display: flex;
-        gap: 45px;
-        margin-top: 28px;
-
-        a {
-            text-decoration: none;
-            color: $black;
-            font-family: 'Space Mono', sans-serif;
-            font-weight: 400;
-            font-size: 16px;
-        }
-    }
-}
-
-//BURGER MENU
-.burger-menu{
-    display: flex;
-}
-
-.burger-menu-btn {
-    display: none;
-}
-
-// FOOTER
-#site-navigation-footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-top: 1px solid $black;
-
-    ul {
-        list-style: none;
-        display: flex;
-
-        li {
-            margin-right: 86px;
-        }
-
-        a {
-            text-decoration: none;
-            color: $black;
-            font-family: 'Space Mono', sans-serif;
-            font-weight: 400;
-            font-size: 16px;
-        }
-    }
-
-    .rights-reserved {
-        font-family: 'Space Mono', sans-serif;
-        font-size: 16px;
-        color: $black;
-    }
-}
-
-// CONTACT MODAL
-#contact-modal {
-    display: none;
-    background: white;
-    width: 597px;
-    height: 769px;
-    border: 5px solid $black;
-    z-index: 9999;
-    overflow: hidden;
-    margin: auto;
-
-    form {
-        display: flex;
-        flex-direction: column;
+    // HEADER
+    #site-navigation-header {
         align-items: center;
-        justify-content: center;
+        margin: 0 146px;
 
-        p {
-            margin: 0;
+        .logo {
+            margin-right: auto;
+            margin-top: 31px;
+            margin-bottom: 35px;
+            margin-left: 0px;
+
+            img {
+                width: 216px;
+                height: 14px;
+            }
+        }
+
+        ul {
+            list-style: none;
+            display: flex;
+            gap: 45px;
+            margin-top: 28px;
+
+            a {
+                text-decoration: none;
+                color: $black;
+                font-family: 'Space Mono', sans-serif;
+                font-weight: 400;
+                font-size: 16px;
+            }
         }
     }
 
-    img {
-        margin-top: 18px;
-        margin-bottom: 45.95px;
-        transform: translateX(-16.31%);
+    //BURGER MENU
+    .burger-menu{
+        display: flex;
     }
 
-    .close-modal {
+    .burger-menu-btn {
         display: none;
     }
 
-    // Styles pour les labels
-    label {
-        display: block;
-        font-family: 'Poppins', sans-serif;
-        font-size: 12px;
-        font-weight: 500;
-        margin-bottom: 24px;
-        color: $black;
-    }
-
-    // Styles pour les champs d'entrée
-    input[type="text"],
-    input[type="email"],
-    input[type="submit"] {
-        width: 263px;
-        height: 40px;
-        border-radius: 8px;
-        border: 1px solid $gray;
-    }
-
-    // Styles spécifiques pour le champ de message
-    textarea {
-        width: 263px;
-        height: 210px;
-        border-radius: 8px;
-        border: 1px solid $gray;
-    }
-
-    // Style pour le bouton Envoyer
-    input[type="submit"] {
-        width: 263px;
-        height: 50px;
-        background-color: $light-gray;
-        color: $black;
-        border-radius: 2px;
-        box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
-        border: none;
-        cursor: pointer;
-    }
-}
-
-#overlay {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    display: none; /* Initialement caché */
-    justify-content: center;
-    align-items: center;
-    top: 0;
-    left: 0;
-    z-index: 999;
-}
-
-// Styles pour la structure de la page
-.photo-details-section {
-    margin: 38px 146px;
-
-    .photo-container {
+    // Styles pour la section des filtres
+    .filter-section {
         display: flex;
-        gap: 21px;
-        justify-content: center;
-
-        .photo-details {
-            width: 50%;
-            border-bottom: 1px solid $black;
-            align-self: flex-end;
-
-            &_container {
-                width: 420px;
-                gap: 20px;
-                text-transform: uppercase;
-                font-family: 'Space Mono', sans-serif;
-                margin-bottom: 37px;
-
-                p {
-                    margin-block-start: 20px;
-                    margin-block-end: 0;
-                    font-size: 14px;
-                    letter-spacing: 1.4px;
-                }
-
-                .photo-title {
-                    margin-block: 0;
-                    font-size: 66px;
-                    font-style: italic;
-                    font-weight: 400;
-                    line-height: 58px;
-                }
-            }
-        }
-
-        .photo-image-container {
-            width: 50%;
-
-            img {
-                height: 100%;
-                width: 100%;
-            }
-        }
-    }
-
-    .cta-and-navigation-container {
-        display: flex;
-        justify-content: space-between;
         align-items: center;
+        margin-top: 79px;
+        margin-left: 144px;
+        gap: 36px;
 
-        .cta-container {
+        .date-filter-section{
+            margin-left: 298px;
+        }
+    
+        .filter-container {
             display: flex;
             align-items: center;
-            gap: 96px;
+            flex-direction: column;
 
-            .cta-contact-button{
-                display: flex;
-                width: 272px;
-                height: 50px;
-                border: none;
-                justify-content: center;
-                align-items: center;
-                border-radius: 2px;
-                background: $light-gray;
-                box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
-                font-family: "Space Mono";
-                font-size: 12px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: normal;
-                cursor: pointer;
+            .filter-label {
+                display: none;
             }
 
-            .cta-contact-button:hover{
-                color: #FFF;
-                background:$black;
-                box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
+            // Styles pour la dropdown personnalisée
+            .custom-dropdown {
+                position: relative;
+                
+                .dropdown-toggle {
+                    width: 260px;
+                    height: 42px;
+                    border-radius: 8px;
+                    border: 1.3px solid var(--Blues-Gray2, #B8BBC2);
+                    background: var(--White, #FFF);
+                    display: flex;
+                    padding: 11px 18px;
+                    justify-content: space-between;
+                    align-items: center;
+                    align-self: stretch;
+                    cursor: pointer;
+                    color: var(--Black, #313144);
+                
+                    /* Drop Menu Menu */
+                    font-family: Poppins;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 18px;
+                    letter-spacing: 0.36px;
+                
 
-            }   
+                    i {
+                        position: absolute;
+                        right: 18px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                    }
+                }
+            
+                .dropdown-list {
+                    color: var(--Black, #313144);
+                    font-family: Poppins;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 18px;
+                    letter-spacing: 0.36px;
+                    position: absolute;
+                    z-index: 1;
+                    display: none;
+                    list-style-type: none;
+                    border-radius: 0px 0px 8px 8px;
+                    background: var(--White, #FFF);
+                    width: 260px;
+                    height: 218px;
+                    padding-left: 0px;
+                }
+                
+                .dropdown-list.show {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-end;
 
-            p {
-                font-family: 'Poppins', sans-serif;
-                font-size: 14px;
-                font-style: normal;
-                font-weight: 300;
-                line-height: normal;
-                margin: 0px;
+                    li {
+                        padding-top: 11px;
+                        padding-bottom: 11px;
+                        padding-left: 24px;
+
+                        &:hover{
+                            background-color: #FFD6D6;
+                        }
+
+                        &:active {
+                            background-color: #FE5858;
+                        }
+                        
+                        &.selected {
+                            background-color: #E00000;
+                        }
+                    }
+                }
             }
         }
     }
-}
 
-.photo-navigation {
-    display: flex;
-    justify-content: right;
-    gap: 5px;
-    margin-top: 20px;
-    border-bottom:1px solid $black;
-}
+    // FOOTER
+    #site-navigation-footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-top: 1px solid $black;
 
-.nav-previous a,
-.nav-next a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
-    border: 1px solid $black;
-    color: #333;
-    width: 25px;
-    margin-bottom: 5px;
-}
+        ul {
+            list-style: none;
+            display: flex;
 
-.nav-previous a:hover,
-.nav-next a:hover {
-    background-color: #ccc;
-    color: #fff;
-}
+            li {
+                margin-right: 86px;
+            }
 
-.related-photos-section {
-    margin-top: 70px;
+            a {
+                text-decoration: none;
+                color: $black;
+                font-family: 'Space Mono', sans-serif;
+                font-weight: 400;
+                font-size: 16px;
+            }
+        }
 
-    h3{
-        margin-top: 0px;
-        margin-bottom: 52px;
-        margin-left: 145px;
-        font-family: "Space Mono";
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-        letter-spacing: 1.8px;
-        text-transform: uppercase;
+        .rights-reserved {
+            font-family: 'Space Mono', sans-serif;
+            font-size: 16px;
+            color: $black;
+        }
     }
 
-    .icon-container {
-        position: absolute;
+    // CONTACT MODAL
+    #contact-modal {
+        display: none;
+        background: white;
+        width: 597px;
+        height: 769px;
+        border: 5px solid $black;
+        z-index: 9999;
+        overflow: hidden;
+        margin: auto;
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            p {
+                margin: 0;
+            }
+        }
+
+        img {
+            margin-top: 18px;
+            margin-bottom: 45.95px;
+            transform: translateX(-16.31%);
+        }
+
+        .close-modal {
+            display: none;
+        }
+
+        // Styles pour les labels
+        label {
+            display: block;
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 24px;
+            color: $black;
+        }
+
+        // Styles pour les champs d'entrée
+        input[type="text"],
+        input[type="email"],
+        input[type="submit"] {
+            width: 263px;
+            height: 40px;
+            border-radius: 8px;
+            border: 1px solid $gray;
+        }
+
+        // Styles spécifiques pour le champ de message
+        textarea {
+            width: 263px;
+            height: 210px;
+            border-radius: 8px;
+            border: 1px solid $gray;
+        }
+
+        // Style pour le bouton Envoyer
+        input[type="submit"] {
+            width: 263px;
+            height: 50px;
+            background-color: $light-gray;
+            color: $black;
+            border-radius: 2px;
+            box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
+            border: none;
+            cursor: pointer;
+        }
+    }
+
+    #overlay {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        top: 0;
+        left: 0;
+        z-index: 999;
+    }
+
+    // Styles pour la structure de la page
+    .photo-details-section {
+        margin: 38px 146px;
+
+        .photo-container {
+            display: flex;
+            gap: 21px;
+            justify-content: center;
+
+            .photo-details {
+                width: 50%;
+                border-bottom: 1px solid $black;
+                align-self: flex-end;
+
+                &_container {
+                    width: 420px;
+                    gap: 20px;
+                    text-transform: uppercase;
+                    font-family: 'Space Mono', sans-serif;
+                    margin-bottom: 37px;
+
+                    p {
+                        margin-block-start: 20px;
+                        margin-block-end: 0;
+                        font-size: 14px;
+                        letter-spacing: 1.4px;
+                    }
+
+                    .photo-title {
+                        margin-block: 0;
+                        font-size: 66px;
+                        font-style: italic;
+                        font-weight: 400;
+                        line-height: 58px;
+                    }
+                }
+            }
+
+            .photo-image-container {
+                width: 50%;
+
+                img {
+                    height: 100%;
+                    width: 100%;
+                }
+            }
+        }
+
+        .cta-and-navigation-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .cta-container {
+                display: flex;
+                align-items: center;
+                gap: 96px;
+
+                .cta-contact-button{
+                    display: flex;
+                    width: 272px;
+                    height: 50px;
+                    border: none;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 2px;
+                    background: $light-gray;
+                    box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
+                    font-family: "Space Mono";
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                    cursor: pointer;
+                }
+
+                .cta-contact-button:hover{
+                    color: #FFF;
+                    background:$black;
+                    box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
+
+                }   
+
+                p {
+                    font-family: 'Poppins', sans-serif;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 300;
+                    line-height: normal;
+                    margin: 0px;
+                }
+            }
+        }
+    }
+
+    .photo-navigation {
+        display: flex;
+        justify-content: right;
+        gap: 5px;
+        margin-top: 20px;
+        border-bottom:1px solid $black;
+    }
+
+    .nav-previous a,
+    .nav-next a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #fff;
+        border: 1px solid $black;
+        color: #333;
+        width: 25px;
+        margin-bottom: 5px;
+    }
+
+    .nav-previous a:hover,
+    .nav-next a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .related-photos-section {
+        margin-top: 70px;
+
+        h3{
+            margin-top: 0px;
+            margin-bottom: 52px;
+            margin-left: 145px;
+            font-family: "Space Mono";
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+        }
+
+        .icon-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+
+        .photo-item:hover .icon-container {
+            display: flex;
+            gap: 0px;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .photo-info-icon {
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+            margin: auto;
+        }
+
+        .fullscreen-icon {
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /* Styles pour la référence de la photo */
+        .photo-reference {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: #FFF;
+            font-family: Poppins;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            text-transform: uppercase;
+        }
+
+        /* Styles pour la catégorie de la photo */
+        .photo-category {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            color: #FFF;
+            font-family: Poppins;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            text-transform: uppercase;
+        }
+    }
+
+    .related-photos-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        height: 495px;
+        margin-bottom: 109px;
+    }
+
+    .related-photo-thumbnail {
+        margin-bottom: 20px;
+        width: 564px;
+        height: 495px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .related-photo-thumbnail a {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+
+    .related-photo-thumbnail a img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    // Styles pour la section hero
+    .hero-section {
+        height: 966px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-size: cover;
+        background-position: center;
+
+        h1 {
+            -webkit-text-fill-color: transparent;
+            -webkit-text-stroke: 3px #fff;
+            font-family: "Space Mono";
+            font-size: 96px;
+            font-style: italic;
+        }
+
+        p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    }
+
+
+    #lightbox-overlay {
+        display: none;
+        position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        display: none;
+        background: rgba(0, 0, 0, 0.60);
+        z-index: 1000;
     }
 
-    .photo-item:hover .icon-container {
-        display: flex;
-        gap: 0px;
-        background-color: rgba(0, 0, 0, 0.5); /* Couleur de l'overlay semi-transparente */
-    }
-
-    .photo-info-icon {
+    .lightbox-navigation {
+        position: fixed;
         font-size: 24px;
         color: #fff;
         cursor: pointer;
-        margin: auto;
+        z-index: 1001;
     }
 
-    .fullscreen-icon {
-        font-size: 24px;
-        color: #fff;
-        cursor: pointer;
-    }
-
-    /* Styles pour la référence de la photo */
-    .photo-reference {
-        position: absolute;
-        bottom: 10px;
+    #lightbox-prev {
+        top: 50%;
         left: 10px;
-        color: #FFF;
-        font-family: Poppins;
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-        text-transform: uppercase;
+        transform: translateY(-50%);
     }
 
-    /* Styles pour la catégorie de la photo */
-    .photo-category {
-        position: absolute;
-        bottom: 10px;
+    #lightbox-next {
+        top: 50%;
         right: 10px;
-        color: #FFF;
-        font-family: Poppins;
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-        text-transform: uppercase;
-    }
-}
-
-.related-photos-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    height: 495px;
-    margin-bottom: 109px;
-}
-
-.related-photo-thumbnail {
-    margin-bottom: 20px;
-    width: 564px;
-    height: 495px;
-    position: relative;
-    overflow: hidden;
-}
-
-.related-photo-thumbnail a {
-    width: 100%;
-    height: 100%;
-    display: block;
-}
-
-.related-photo-thumbnail a img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-// Styles pour la section hero
-.hero-section {
-    height: 966px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-size: cover;
-    background-position: center;
-
-    h1 {
-        -webkit-text-fill-color: transparent;
-        -webkit-text-stroke: 3px #fff;
-        font-family: "Space Mono";
-        font-size: 96px;
-        font-style: italic;
+        transform: translateY(-50%);
     }
 
-    p {
-        font-size: 18px;
-        max-width: 600px;
-        margin: 0 auto;
+    #lightbox-close {
+        top: 10px;
+        right: 10px;
     }
-}
 
-// Styles pour la section des filtres
-.filter-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-  
-    .filter-container {
+    #lightbox-container {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        z-index: 1001;
         display: flex;
+        flex-direction: column;
+        justify-content: center;
         align-items: center;
     }
-  
-    .filter-label {
-        margin-right: 10px;
-        font-size: 16px;
+
+    #lightbox-image {
+        max-width: 100%;
+        max-height: 80vh;
+        align-self: center;
+    }
+
+    #lightbox-info {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 5px;
+        color: #fff;
+        font-family: "Space Mono";
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        letter-spacing: 1.4px;
+        text-transform: uppercase;
+        z-index: 1001;
+    }
+
+    // Ajout styles pour la section de la liste des photos
+    .photo-list-section {
+        padding: 40px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .photo-list-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            justify-content: center;
+
+            .photo-item {
+                margin-bottom: 20px;
+                width: 564px;
+                height: 495px;
+                position: relative;
+                overflow: hidden;
+
+                .photo-image {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    display: block;
+                }
+            }
+            .photo-item.hovered .icon-container {
+                display: flex;
+                gap: 0px;
+                background-color: rgba(0, 0, 0, 0.60);
+            }
+        }
+
+        .icon-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+
+
+        
+
+        .photo-info-icon {
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+            margin: auto;
+        }
+
+        .fullscreen-icon {
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /* Styles pour la référence de la photo */
+        .photo-reference {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: #FFF;
+            font-family: Poppins;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            text-transform: uppercase;
+        }
+
+        /* Styles pour la catégorie de la photo */
+        .photo-category {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            color: #FFF;
+            font-family: Poppins;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            text-transform: uppercase;
+        }
+
+        .load-more-container {
+            text-align: center;
+            margin-top: 50px;
+            margin-bottom: 50px;
+
+
+            button {
+                width: 272px;
+                height: 50px;
+                background-color: $light-gray;
+                color: $black;
+                border-radius: 2px;
+                border: none;
+                box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
+                cursor: pointer;
+                font-size: 12px;
+                font-weight: 400;
+                font-family: "Space Mono";
+            }
+            
+            button:hover{
+                color: white;
+                background: $black;
+                box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
+            }
+
+        }
     }
 }
 
-#lightbox-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.60);
-    z-index: 1000;
-}
 
-.lightbox-navigation {
-    position: fixed;
-    font-size: 24px;
-    color: #fff;
-    cursor: pointer;
-    z-index: 1001; /* Mettre au-dessus de l'overlay */
-}
 
-#lightbox-prev {
-    top: 50%;
-    left: 10px;
-    transform: translateY(-50%);
-}
 
-#lightbox-next {
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-}
+//MEDIA SCREEN
 
-#lightbox-close {
-    top: 10px;
-    right: 10px;
-}
 
-#lightbox-container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    z-index: 1001; /* Mettre au-dessus de l'overlay */
-    display: flex; /* Utiliser Flexbox pour aligner les éléments verticalement */
-    flex-direction: column; /* Aligner les éléments en colonne */
-    justify-content: center; /* Centrer verticalement */
-    align-items: center; /* Centrer horizontalement */
-}
+@media screen and (max-width: 1300px) {
 
-#lightbox-image {
-    max-width: 100%;
-    max-height: 80vh; /* Hauteur maximale de 80% de la hauteur de la vue */
-    align-self: center; /* Centrer l'image horizontalement */
-}
+    // GLOBAL
+    body {
+        margin: auto;
+        max-width: 375px;
 
-#lightbox-info {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 5px;
-    color: #fff;
-    font-family: "Space Mono";
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    letter-spacing: 1.4px;
-    text-transform: uppercase;
-    z-index: 1001; /* Mettre au-dessus de l'overlay */
-}
+        // HEADER
+        #site-navigation-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-left: 0px;
+            margin-right: 0px;
 
-// Ajout styles pour la section de la liste des photos
-.photo-list-section {
-    padding: 40px 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+            .logo {
+                margin-top: 32px;
+                margin-bottom: 31px;
+                margin-left: 0px;
 
-    .photo-list-container {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-        justify-content: center;
+                img {
+                    width: 138px;
+                    height: 9px;
+                }
+            }
 
-        .photo-item {
+            .main-menu{
+                display: none;
+            }
+
+            .burger-menu{
+                width: 100%;
+                gap: 129px;
+
+                .burger-menu-btn {
+                    display: block;
+                    border: none;
+                    background-color: white;
+                    padding-top: 26.576px;
+                    padding-right: 0px;
+                    padding-left: 0px;
+                    width: 27.415px;
+                    height: 18.848px;
+
+                }
+                
+                .main-menu {
+                    position: absolute;
+                    width: 100%;
+                    top:100%;
+                    justify-content: center;
+                    align-items: center;
+                    display: none;
+                    z-index: 1005;
+
+                    .menu-menu-header-container{
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+
+                        & ul{
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            padding-left: 0px;
+
+                            & li a{
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                color: #FFF!important;
+                                text-align: center!important;
+                                font-family: "Space Mono"!important;
+                                font-size: 44px!important;
+                                font-style: normal!important;
+                                font-weight: 400!important;
+                                line-height: normal!important;                                    text-transform: uppercase!important;
+                            }   
+                        }
+                    } 
+                }
+        
+                /* ACTIVE BURGER MENU STYLE */
+                .burger-menu-btn.active ~ .main-menu {
+                    display: flex;
+                    background: $primary-red;
+                    width: 100%;
+                    height: 740px;
+        
+                    ul{
+                        display: flex;
+                        flex-direction: column;
+                    }
+                }
+            }    
+        }
+    
+
+        // FOOTER
+        #site-navigation-footer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-top: 1px solid $black;
+            margin-bottom: 60px;
+
+            ul {
+                padding-left: 0px;
+                list-style: none;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                margin-top: 44px;
+                margin-bottom: 24px;
+                gap:24px;
+
+                li {
+                    margin-right: 0px;
+                    display: flex;
+                    justify-content: center;
+                }
+
+                a {
+                    text-decoration: none;
+                    align-self: center;
+                    color: $black;
+                    font-family: 'Space Mono', sans-serif;
+                    font-weight: 400;
+                    font-size: 16px;
+                }
+            }
+
+            .rights-reserved {
+                font-family: 'Space Mono', sans-serif;
+                font-size: 16px;
+                color: $black;
+                margin-bottom: 0px;
+                margin-top: 0px;
+            }
+        }
+
+        // CONTACT MODAL
+        #contact-modal {
+            display: none;
+            background: white;
+            width: 597px;
+            height: 769px;
+            border: 5px solid $black;
+            z-index: 9999;
+            overflow: hidden;
+            margin: auto;
+
+            form {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                p {
+                    margin: 0;
+                }
+            }
+
+            img {
+                margin-top: 18px;
+                margin-bottom: 45.95px;
+                transform: translateX(-16.31%);
+            }
+
+            .close-modal {
+                display: none;
+            }
+
+            // Styles pour les labels
+            label {
+                display: block;
+                font-family: 'Poppins', sans-serif;
+                font-size: 12px;
+                font-weight: 500;
+                margin-bottom: 24px;
+                color: $black;
+            }
+
+            // Styles pour les champs d'entrée
+            input[type="text"],
+            input[type="email"],
+            input[type="submit"] {
+                width: 263px;
+                height: 40px;
+                border-radius: 8px;
+                border: 1px solid $gray;
+            }
+
+            // Styles spécifiques pour le champ de message
+            textarea {
+                width: 263px;
+                height: 210px;
+                border-radius: 8px;
+                border: 1px solid $gray;
+            }
+
+            // Style pour le bouton Envoyer
+            input[type="submit"] {
+                width: 263px;
+                height: 50px;
+                background-color: $light-gray;
+                color: $black;
+                border-radius: 2px;
+                box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
+                border: none;
+                cursor: pointer;
+            }
+        }
+
+        #overlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            top: 0;
+            left: 0;
+            z-index: 999;
+        }
+
+        // Styles pour la structure de la page
+        .photo-details-section {
+            margin-top: 20px;
+            margin-left: 0px;
+            margin-right: 0px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            .photo-container {
+                display: flex;
+                flex-direction: column-reverse;
+                gap: 21px;
+                justify-content: center;
+
+                .photo-image-container {
+                    display: flex;
+                    justify-content: center;
+                    width: auto;
+
+                    img {
+                        height: 100%;
+                        width: 100%;
+                    }
+                }
+
+                .photo-details {
+                    width: 100%;
+                    border-bottom: 1px solid $black;
+                    align-self: flex-end;
+
+                    &_container {
+                        gap: 15px;
+                        text-transform: uppercase;
+                        font-family: 'Space Mono', sans-serif;
+
+                        p {
+                            margin-block-start: 15px;
+                            margin-block-end: 0;
+                            color: #000;
+                            font-family: "Space Mono";
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: normal;
+                            letter-spacing: 1.4px;
+                            text-transform: uppercase;
+                        }
+
+                        .photo-title {
+                            color: #000;
+                            font-family: "Space Mono";
+                            font-size: 46px;
+                            font-style: italic;
+                            font-weight: 400;
+                            line-height: 48px; /* 104.348% */
+                            text-transform: uppercase;
+                        }
+                    }
+                }
+            }
+
+            .cta-and-navigation-container {
+                display: flex;
+                flex-direction: column;
+                align-items: normal;
+                border-bottom: 1px solid $black;
+
+                .cta-container {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
+                    align-items: normal;
+                    margin-bottom: 30px;
+
+                    .cta-contact-button{
+                        display: flex;
+                        width: 272px;
+                        height: 50px;
+                        border: none;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: 2px;
+                        background: $light-gray;
+                        box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
+                        font-family: "Space Mono";
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                        cursor: pointer;
+                        align-self: center;
+                    }
+
+                    .cta-contact-button:hover{
+                        color: #FFF;
+                        background:$black;
+                        box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
+
+                    }   
+
+                    p {
+                        font-family: 'Poppins', sans-serif;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 300;
+                        line-height: normal;
+                        margin-top: 26px;
+                        display: flex;
+                    }
+                }
+
+                .next-photo-thumbnail{
+                    display: none;
+                }
+            }
+        }
+
+        .photo-navigation {
+            display: none;
+            justify-content: right;
+            gap: 5px;
+            margin-top: 20px;
+            border-bottom:1px solid $black;
+        }
+
+        .nav-previous a,
+        .nav-next a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            border: 1px solid $black;
+            color: #333;
+            width: 25px;
+            margin-bottom: 5px;
+            display: none;
+        }
+
+        .nav-previous a:hover,
+        .nav-next a:hover {
+            background-color: #ccc;
+            color: #fff;
+            display: none;
+        }
+
+        .related-photos-section {
+            margin-top: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            h3{
+                margin-top: 0px;
+                margin-bottom: 0px;
+                margin-left: 0px;
+                font-family: "Space Mono";
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                letter-spacing: 1.8px;
+                text-transform: uppercase;
+            }
+
+            .icon-container {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: none;
+            }
+
+            .photo-item:hover .icon-container {
+                display: flex;
+                gap: 0px;
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+
+            .photo-info-icon {
+                font-size: 24px;
+                color: #fff;
+                cursor: pointer;
+                margin: auto;
+            }
+
+            .fullscreen-icon {
+                font-size: 24px;
+                color: #fff;
+                cursor: pointer;
+            }
+
+            /* Styles pour la référence de la photo */
+            .photo-reference {
+                position: absolute;
+                bottom: 10px;
+                left: 10px;
+                color: #FFF;
+                font-family: Poppins;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+                text-transform: uppercase;
+            }
+
+            /* Styles pour la catégorie de la photo */
+            .photo-category {
+                position: absolute;
+                bottom: 10px;
+                right: 10px;
+                color: #FFF;
+                font-family: Poppins;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+                text-transform: uppercase;
+            }
+        }
+
+        .related-photos-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 20px;
+            height: auto;
+            margin-bottom: 24.4px;
+            margin-top: 20px;
+        }
+
+        .related-photo-thumbnail {
             margin-bottom: 20px;
             width: 564px;
             height: 495px;
             position: relative;
             overflow: hidden;
-
-            .photo-image {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                display: block;
-            }
-        }
-    }
-
-    .icon-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: none;
-    }
-
-    .photo-item:hover .icon-container {
-        display: flex;
-        gap: 0px;
-        background-color: rgba(0, 0, 0, 0.60);
-    }
-
-    .photo-info-icon {
-        font-size: 24px;
-        color: #fff;
-        cursor: pointer;
-        margin: auto;
-    }
-
-    .fullscreen-icon {
-        font-size: 24px;
-        color: #fff;
-        cursor: pointer;
-    }
-
-    /* Styles pour la référence de la photo */
-    .photo-reference {
-        position: absolute;
-        bottom: 10px;
-        left: 10px;
-        color: #FFF;
-        font-family: Poppins;
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-        text-transform: uppercase;
-    }
-
-    /* Styles pour la catégorie de la photo */
-    .photo-category {
-        position: absolute;
-        bottom: 10px;
-        right: 10px;
-        color: #FFF;
-        font-family: Poppins;
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-        text-transform: uppercase;
-    }
-
-    .load-more-container {
-        text-align: center;
-        margin-top: 50px;
-        margin-bottom: 50px;
-
-
-        button {
-            width: 272px;
-            height: 50px;
-            background-color: $light-gray;
-            color: $black;
-            border-radius: 2px;
-            border: none;
-            box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 400;
-            font-family: "Space Mono";
-        }
-        
-        button:hover{
-            color: white;
-            background: $black;
-            box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
         }
 
-    }
-}
-
-//MEDIA SCREEN
-
-@media screen and (max-width: 1150px) {
-
-    // GLOBAL
-    body {
-
-    max-width: auto;
-    }
-
-    // HEADER
-    #site-navigation-header {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-
-        .logo {
-            margin-top: 32px;
-            margin-bottom: 31px;
-            margin-left: 0px;
-
-            img {
-                width: 138px;
-                height: 9px;
-            }
-        }
-
-        .main-menu{
-            display: none;
-        }
-
-        .burger-menu{
+        .related-photo-thumbnail a {
             width: 100%;
-            gap: 129px;
+            height: 100%;
+            display: block;
+        }
 
-            .burger-menu-btn {
-                display: block;
-                border: none;
-                background-color: white;
-                padding-top: 26.576px;
-                padding-right: 0px;
-                padding-left: 0px;
-                width: 27.415px;
-                height: 18.848px;
+        .related-photo-thumbnail a img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        // Styles pour la section hero
+        .hero-section {
+            max-height: 253px;
+            max-width: 379px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+
+            h1 {
+                -webkit-text-fill-color: transparent;
+                -webkit-text-stroke: 3px #fff;
+                font-family: "Space Mono";
+                font-size: 96px;
+                font-style: italic;
             }
-            
-            .main-menu {
-                position: absolute;
-                width: 100%;
-                top:100%;
+
+            p {
+                font-size: 18px;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+        }
+
+
+        #lightbox-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.60);
+            z-index: 1000;
+        }
+
+        .lightbox-navigation {
+            position: fixed;
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        #lightbox-prev {
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+        }
+
+        #lightbox-next {
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+        }
+
+        #lightbox-close {
+            top: 10px;
+            right: 10px;
+        }
+
+        #lightbox-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #lightbox-image {
+            max-width: 100%;
+            max-height: 80vh;
+            align-self: center;
+        }
+
+        #lightbox-info {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            color: #fff;
+            font-family: "Space Mono";
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            z-index: 1001;
+        }
+
+        // Ajout styles pour la section de la liste des photos
+        .photo-list-section {
+            padding: 40px 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .photo-list-container {
+                display: grid;
+                grid-template-columns: repeat(1, 1fr);
+                gap: 20px;
                 justify-content: center;
-                align-items: center;
-                display: none;
-    
-                .menu-menu-header-container ul li a{
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    color: #FFF!important;
-                    text-align: center!important;
-                    font-family: "Space Mono"!important;
-                    font-size: 44px!important;
-                    font-style: normal!important;
-                    font-weight: 400!important;
-                    line-height: normal!important;
-                    text-transform: uppercase!important;
-                } 
-            }
-    
-    
-            /* ACTIVE BURGER MENU STYLE */
-            .burger-menu-btn.active ~ .main-menu {
-                display: flex;
-                background: $primary-red;
+            
+                & > * {
                 width: 100%;
-                height: 740px;
-    
-                ul{
+                }
+
+                .photo-item {
+                    margin-bottom: 20px;
+                    width: 564px;
+                    height: 495px;
+                    position: relative;
+                    overflow: hidden;
+
+                    .photo-image {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        display: block;
+                    }
+                }
+                .photo-item.hovered .icon-container {
                     display: flex;
-                    flex-direction: column;
+                    gap: 0px;
+                    background-color: rgba(0, 0, 0, 0.60);
                 }
             }
-        }    
+
+            .icon-container {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: none;
+            }
+
+            .photo-info-icon {
+                font-size: 24px;
+                color: #fff;
+                cursor: pointer;
+                margin: auto;
+            }
+
+            .fullscreen-icon {
+                font-size: 24px;
+                color: #fff;
+                cursor: pointer;
+            }
+
+            /* Styles pour la référence de la photo */
+            .photo-reference {
+                position: absolute;
+                bottom: 10px;
+                left: 10px;
+                color: #FFF;
+                font-family: Poppins;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+                text-transform: uppercase;
+            }
+
+            /* Styles pour la catégorie de la photo */
+            .photo-category {
+                position: absolute;
+                bottom: 10px;
+                right: 10px;
+                color: #FFF;
+                font-family: Poppins;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+                text-transform: uppercase;
+            }
+
+            .load-more-container {
+                text-align: center;
+                margin-top: 50px;
+                margin-bottom: 50px;
+
+                button {
+                    width: 272px;
+                    height: 50px;
+                    background-color: $light-gray;
+                    color: $black;
+                    border-radius: 2px;
+                    border: none;
+                    box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
+                    cursor: pointer;
+                    font-size: 12px;
+                    font-weight: 400;
+                    font-family: "Space Mono";
+                }
+                
+                button:hover{
+                    color: white;
+                    background: $black;
+                    box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
+                }
+
+            }
+        }
+    
+
+        .filter-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 79px;
+            margin-left: 0px;
+            gap: 36px;
+
+            .date-filter-section{
+                margin-left: 0px;
+            }
+
+            .filter-container {
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+
+                .filter-label {
+                    display: none;
+                }
+
+                // Styles pour la dropdown personnalisée
+                .custom-dropdown {
+                    position: relative;
+                    
+                    .dropdown-toggle {
+                        width: 260px;
+                        height: 42px;
+                        border-radius: 8px;
+                        border: 1.3px solid var(--Blues-Gray2, #B8BBC2);
+                        background: var(--White, #FFF);
+                        display: flex;
+                        padding: 11px 18px;
+                        justify-content: space-between;
+                        align-items: center;
+                        align-self: stretch;
+                        cursor: pointer;
+                        color: var(--Black, #313144);
+                    
+                        /* Drop Menu Menu */
+                        font-family: Poppins;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: 18px; /* 150% */
+                        letter-spacing: 0.36px;
+                    
+
+                        i {
+                            position: absolute;
+                            right: 18px;
+                            top: 50%;
+                            transform: translateY(-50%);
+                        }
+                    }
+                
+                    .dropdown-list {
+                        color: var(--Black, #313144);
+                        font-family: Poppins;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: 18px;
+                        letter-spacing: 0.36px;
+                        position: absolute;
+                        z-index: 1;
+                        display: none;
+                        list-style-type: none;
+                        border-radius: 0px 0px 8px 8px;
+                        background: var(--White, #FFF);
+                        width: 260px;
+                        height: 218px;
+                        padding-left: 0px;
+                    }
+                    
+                    .dropdown-list.show {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: flex-end;
+
+                        li {
+                            padding-top: 11px;
+                            padding-bottom: 11px;
+                            padding-left: 24px;
+
+                            &:hover{
+                                background-color: #FFD6D6;
+                            }
+
+                            &:active {
+                                background-color: #FE5858;
+                            }
+                            
+                            &.selected {
+                                background-color: #E00000;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
-
-/* Styles pour la dropdown personnalisée */
-.custom-dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-toggle {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 8px 16px;
-    cursor: pointer;
-}
-
-.dropdown-list {
-    position: absolute;
-    top: calc(100% + 5px); /* positionner juste en dessous du bouton */
-    left: 0;
-    z-index: 1;
-    display: none;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    background-color: #fff;
-    border: 1px solid #ccc;
-}
-
-.dropdown-list.show { /* Ajouter la classe .show pour afficher la liste déroulante */
-    display: block;
-}
-
-.dropdown-list li {
-    padding: 8px 16px;
-}
-
-/* Effet au survol */
-.dropdown-list li:hover {
-    background-color: #FFD6D6; /* background lors du survol */
-}
-
-/* Effet lors du clic */
-.dropdown-list li:active {
-    background-color: #FE5858; /* background lors du clic */
-}
-
-/* Effet pour l'élément sélectionné */
-.dropdown-list li.selected {
-    background-color: #E00000; /* background de l'élément sélectionné */
-}
-
-.selected {
-    background-color: #E00000; /* Couleur de fond lorsque l'élément est sélectionné */
-}
-

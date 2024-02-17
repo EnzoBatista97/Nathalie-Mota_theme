@@ -196,6 +196,6 @@
 </section>
 
 <?php get_footer();?>
-
 <!-- Inclusion du script JavaScript -->
+<script src="<?php echo get_template_directory_uri() . '/assets/js/burger-menu.js'; ?>"></script>
 <script src="<?php echo get_template_directory_uri() . '/assets/js/scripts.js'; ?>"></script>
