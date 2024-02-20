@@ -19,11 +19,7 @@ body {
         margin: 0 146px;
 
         .logo {
-            margin-right: auto;
-            margin-top: 31px;
-            margin-bottom: 35px;
-            margin-left: 0px;
-
+            margin: 31px auto 35px 0;
             img {
                 width: 216px;
                 height: 14px;
@@ -46,8 +42,8 @@ body {
         }
     }
 
-    //BURGER MENU
-    .burger-menu{
+    // BURGER MENU
+    .burger-menu {
         display: flex;
     }
 
@@ -55,7 +51,7 @@ body {
         display: none;
     }
 
-    // Styles pour la section des filtres
+    // FILTER SECTION
     .filter-section {
         display: flex;
         align-items: center;
@@ -63,10 +59,10 @@ body {
         margin-left: 144px;
         gap: 36px;
 
-        .date-filter-section{
+        .date-filter-section {
             margin-left: 298px;
         }
-    
+
         .filter-container {
             display: flex;
             align-items: center;
@@ -76,10 +72,10 @@ body {
                 display: none;
             }
 
-            // Styles pour la dropdown personnalisée
+            // CUSTOM DROPDOWN
             .custom-dropdown {
                 position: relative;
-                
+
                 .dropdown-toggle {
                     width: 260px;
                     height: 42px;
@@ -93,15 +89,12 @@ body {
                     align-self: stretch;
                     cursor: pointer;
                     color: var(--Black, #313144);
-                
-                    /* Drop Menu Menu */
                     font-family: Poppins;
                     font-size: 12px;
                     font-style: normal;
                     font-weight: 500;
                     line-height: 18px;
                     letter-spacing: 0.36px;
-                
 
                     i {
                         position: absolute;
@@ -110,7 +103,7 @@ body {
                         transform: translateY(-50%);
                     }
                 }
-            
+
                 .dropdown-list {
                     color: var(--Black, #313144);
                     font-family: Poppins;
@@ -129,7 +122,7 @@ body {
                     height: 218px;
                     padding-left: 0px;
                 }
-                
+
                 .dropdown-list.show {
                     display: flex;
                     flex-direction: column;
@@ -140,14 +133,14 @@ body {
                         padding-bottom: 11px;
                         padding-left: 24px;
 
-                        &:hover{
+                        &:hover {
                             background-color: #FFD6D6;
                         }
 
                         &:active {
                             background-color: #FE5858;
                         }
-                        
+
                         &.selected {
                             background-color: #E00000;
                         }
@@ -211,16 +204,14 @@ body {
         }
 
         img {
-            margin-top: 18px;
-            margin-bottom: 45.95px;
-            transform: translateX(-16.31%);
+            margin: 18px auto 45.95px -16.31%;
         }
 
         .close-modal {
             display: none;
         }
 
-        // Styles pour les labels
+        // LABEL STYLES
         label {
             display: block;
             font-family: 'Poppins', sans-serif;
@@ -230,7 +221,7 @@ body {
             color: $black;
         }
 
-        // Styles pour les champs d'entrée
+        // INPUT STYLES
         input[type="text"],
         input[type="email"],
         input[type="submit"] {
@@ -240,7 +231,7 @@ body {
             border: 1px solid $gray;
         }
 
-        // Styles spécifiques pour le champ de message
+        // TEXTAREA STYLES
         textarea {
             width: 263px;
             height: 210px;
@@ -248,7 +239,7 @@ body {
             border: 1px solid $gray;
         }
 
-        // Style pour le bouton Envoyer
+        // SUBMIT BUTTON STYLES
         input[type="submit"] {
             width: 263px;
             height: 50px;
@@ -261,6 +252,7 @@ body {
         }
     }
 
+    // OVERLAY
     #overlay {
         position: fixed;
         width: 100%;
@@ -274,7 +266,7 @@ body {
         z-index: 999;
     }
 
-    // Styles pour la structure de la page
+    // PHOTO DETAILS SECTION
     .photo-details-section {
         margin: 38px 146px;
 
@@ -332,7 +324,7 @@ body {
                 align-items: center;
                 gap: 96px;
 
-                .cta-contact-button{
+                .cta-contact-button {
                     display: flex;
                     width: 272px;
                     height: 50px;
@@ -348,52 +340,52 @@ body {
                     font-weight: 400;
                     line-height: normal;
                     cursor: pointer;
-                }
 
-                .cta-contact-button:hover{
-                    color: #FFF;
-                    background:$black;
-                    box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
+                    &:hover {
+                        color: #fff;
+                        background: $black;
+                        box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
+                    }
 
-                }   
-
-                p {
-                    font-family: 'Poppins', sans-serif;
-                    font-size: 14px;
-                    font-style: normal;
-                    font-weight: 300;
-                    line-height: normal;
-                    margin: 0px;
+                    p {
+                        font-family: 'Poppins', sans-serif;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 300;
+                        line-height: normal;
+                        margin: 0px;
+                    }
                 }
             }
         }
     }
 
+    // PHOTO NAVIGATION
     .photo-navigation {
         display: flex;
         justify-content: right;
         gap: 31px;
         margin-top: 20px;
-        border-bottom:1px solid $black;
+        border-bottom: 1px solid $black;
+
+        .nav-previous a,
+        .nav-next a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            color: #333;
+            width: 25px;
+            margin-bottom: 5px;
+        }
     }
 
-    .nav-previous a,
-    .nav-next a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #fff;
-        color: #333;
-        width: 25px;
-
-        margin-bottom: 5px;
-    }
-
+    // RELATED PHOTOS SECTION
     .related-photos-section {
         margin-top: 70px;
 
-        h3{
-            margin-top: 0px;
+        h3 {
+            margin: 0;
             margin-bottom: 52px;
             margin-left: 145px;
             font-family: "Space Mono";
@@ -433,25 +425,11 @@ body {
             cursor: pointer;
         }
 
-        /* Styles pour la référence de la photo */
-        .photo-reference {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            color: #FFF;
-            font-family: Poppins;
-            font-size: 14px;
-            font-style: normal;
-            font-weight: 500;
-            line-height: normal;
-            text-transform: uppercase;
-        }
-
-        /* Styles pour la catégorie de la photo */
+        // PHOTO REFERENCE STYLES
+        .photo-reference,
         .photo-category {
             position: absolute;
             bottom: 10px;
-            right: 10px;
             color: #FFF;
             font-family: Poppins;
             font-size: 14px;
@@ -460,8 +438,17 @@ body {
             line-height: normal;
             text-transform: uppercase;
         }
+
+        .photo-reference {
+            left: 10px;
+        }
+
+        .photo-category {
+            right: 10px;
+        }
     }
 
+    // RELATED PHOTOS CONTAINER
     .related-photos-container {
         display: flex;
         justify-content: center;
@@ -476,22 +463,22 @@ body {
         height: 495px;
         position: relative;
         overflow: hidden;
+
+        a {
+            width: 100%;
+            height: 100%;
+            display: block;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+        }
     }
 
-    .related-photo-thumbnail a {
-        width: 100%;
-        height: 100%;
-        display: block;
-    }
-
-    .related-photo-thumbnail a img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-    }
-
-    // Styles pour la section hero
+    // HERO SECTION
     .hero-section {
         height: 966px;
         display: flex;
@@ -515,7 +502,7 @@ body {
         }
     }
 
-
+    // LIGHTBOX
     #lightbox-overlay {
         display: none;
         position: fixed;
@@ -587,7 +574,7 @@ body {
         z-index: 1001;
     }
 
-    // Ajout styles pour la section de la liste des photos
+    // PHOTO LIST SECTION
     .photo-list-section {
         padding: 40px 0;
         display: flex;
@@ -614,11 +601,12 @@ body {
                     object-fit: cover;
                     display: block;
                 }
-            }
-            .photo-item.hovered .icon-container {
-                display: flex;
-                gap: 0px;
-                background-color: rgba(0, 0, 0, 0.60);
+
+                &:hover .icon-container {
+                    display: flex;
+                    gap: 0px;
+                    background-color: rgba(0, 0, 0, 0.60);
+                }
             }
         }
 
@@ -644,11 +632,11 @@ body {
             cursor: pointer;
         }
 
-        /* Styles pour la référence de la photo */
-        .photo-reference {
+        // PHOTO REFERENCE STYLES
+        .photo-reference,
+        .photo-category {
             position: absolute;
             bottom: 10px;
-            left: 10px;
             color: #FFF;
             font-family: Poppins;
             font-size: 14px;
@@ -658,25 +646,18 @@ body {
             text-transform: uppercase;
         }
 
-        /* Styles pour la catégorie de la photo */
+        .photo-reference {
+            left: 10px;
+        }
+
         .photo-category {
-            position: absolute;
-            bottom: 10px;
             right: 10px;
-            color: #FFF;
-            font-family: Poppins;
-            font-size: 14px;
-            font-style: normal;
-            font-weight: 500;
-            line-height: normal;
-            text-transform: uppercase;
         }
 
         .load-more-container {
             text-align: center;
             margin-top: 50px;
             margin-bottom: 50px;
-
 
             button {
                 width: 272px;
@@ -690,23 +671,18 @@ body {
                 font-size: 12px;
                 font-weight: 400;
                 font-family: "Space Mono";
-            }
-            
-            button:hover{
-                color: white;
-                background: $black;
-                box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
-            }
 
+                &:hover {
+                    color: white;
+                    background: $black;
+                    box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
+                }
+            }
         }
     }
 }
 
-
-
-
 //MEDIA SCREEN
-
 
 @media screen and (max-width: 1300px) {
 
@@ -735,11 +711,11 @@ body {
                 }
             }
 
-            .main-menu{
+            .main-menu {
                 display: none;
             }
 
-            .burger-menu{
+            .burger-menu {
                 width: 100%;
                 gap: 129px;
 
@@ -752,61 +728,60 @@ body {
                     padding-left: 0px;
                     width: 27.415px;
                     height: 18.848px;
-
                 }
-                
+
                 .main-menu {
                     position: absolute;
                     width: 100%;
-                    top:100%;
+                    top: 100%;
                     justify-content: center;
                     align-items: center;
                     display: none;
                     z-index: 1005;
 
-                    .menu-menu-header-container{
+                    .menu-menu-header-container {
                         display: flex;
                         flex-direction: column;
                         justify-content: center;
                         align-items: center;
 
-                        & ul{
+                        & ul {
                             display: flex;
                             justify-content: center;
                             align-items: center;
                             padding-left: 0px;
 
-                            & li a{
+                            & li a {
                                 display: flex;
                                 justify-content: center;
                                 align-items: center;
-                                color: #FFF!important;
-                                text-align: center!important;
-                                font-family: "Space Mono"!important;
-                                font-size: 44px!important;
-                                font-style: normal!important;
-                                font-weight: 400!important;
-                                line-height: normal!important;                                    text-transform: uppercase!important;
-                            }   
+                                color: #FFF !important;
+                                text-align: center !important;
+                                font-family: "Space Mono" !important;
+                                font-size: 44px !important;
+                                font-style: normal !important;
+                                font-weight: 400 !important;
+                                line-height: normal !important;
+                                text-transform: uppercase !important;
+                            }
                         }
-                    } 
+                    }
                 }
-        
+
                 /* ACTIVE BURGER MENU STYLE */
                 .burger-menu-btn.active ~ .main-menu {
                     display: flex;
                     background: $primary-red;
                     width: 100%;
                     height: 740px;
-        
-                    ul{
+
+                    ul {
                         display: flex;
                         flex-direction: column;
                     }
                 }
-            }    
+            }
         }
-    
 
         // FOOTER
         #site-navigation-footer {
@@ -825,7 +800,7 @@ body {
                 flex-direction: column;
                 margin-top: 44px;
                 margin-bottom: 24px;
-                gap:24px;
+                gap: 24px;
 
                 li {
                     margin-right: 0px;
@@ -1014,7 +989,7 @@ body {
                     align-items: normal;
                     margin-bottom: 30px;
 
-                    .cta-contact-button{
+                    .cta-contact-button {
                         display: flex;
                         width: 272px;
                         height: 50px;
@@ -1033,12 +1008,11 @@ body {
                         align-self: center;
                     }
 
-                    .cta-contact-button:hover{
+                    .cta-contact-button:hover {
                         color: #FFF;
-                        background:$black;
+                        background: $black;
                         box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
-
-                    }   
+                    }
 
                     p {
                         font-family: 'Poppins', sans-serif;
@@ -1051,7 +1025,7 @@ body {
                     }
                 }
 
-                .next-photo-thumbnail{
+                .next-photo-thumbnail {
                     display: none;
                 }
             }
@@ -1062,7 +1036,7 @@ body {
             justify-content: right;
             gap: 5px;
             margin-top: 20px;
-            border-bottom:1px solid $black;
+            border-bottom: 1px solid $black;
         }
 
         .nav-previous a,
@@ -1092,7 +1066,7 @@ body {
             justify-content: center;
             align-items: center;
 
-            h3{
+            h3 {
                 margin-top: 0px;
                 margin-bottom: 0px;
                 margin-left: 0px;
@@ -1420,7 +1394,7 @@ body {
             margin-left: 0px;
             gap: 8px;
 
-            .date-filter-section{
+            .date-filter-section {
                 margin-left: 0px;
             }
 
@@ -1497,7 +1471,7 @@ body {
                             padding-bottom: 11px;
                             padding-left: 24px;
 
-                            &:hover{
+                            &:hover {
                                 background-color: #FFD6D6;
                             }
 

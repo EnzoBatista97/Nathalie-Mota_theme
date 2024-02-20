@@ -1,8 +1,7 @@
 <?php get_header(); ?>
 
 <?php
-
-// Récupére une image aléatoire depuis le catalogue de photos
+// Récupère une image aléatoire depuis le catalogue de photos
 $args = array(
     'post_type'      => 'photo',
     'posts_per_page' => 1,
@@ -13,7 +12,7 @@ $query = new WP_Query($args);
 
 if ($query->have_posts()) :
     while ($query->have_posts()) : $query->the_post();
-    $random_image_url = wp_get_attachment_image_src(get_post_thumbnail_id(), 'hero')[0];
+        $random_image_url = wp_get_attachment_image_src(get_post_thumbnail_id(), 'hero')[0];
     endwhile;
     wp_reset_postdata();
 endif;
@@ -29,14 +28,14 @@ endif;
     <div class="filter-container category-filter-section">
         <label class="filter-label" for="category-filter">CATÉGORIES</label>
         <div class="custom-dropdown" id="category-dropdown">
-    <!-- HTML -->
-    <button class="dropdown-toggle"><i class="fas fa-chevron-down"></i> CATÉGORIES</button>
+            <!-- HTML -->
+            <button class="dropdown-toggle"><i class="fas fa-chevron-down"></i> CATÉGORIES</button>
 
             <ul class="dropdown-list">
                 <li data-value="" data-label="Toutes">Toutes</li>
                 <?php
                 $categories = get_terms(array(
-                    'taxonomy' => 'categorie',
+                    'taxonomy'   => 'categorie',
                     'hide_empty' => false,
                 ));
 
@@ -59,7 +58,7 @@ endif;
                 <li data-value="" data-label="Tous">Tous</li>
                 <?php
                 $formats = get_terms(array(
-                    'taxonomy' => 'format',
+                    'taxonomy'   => 'format',
                     'hide_empty' => false,
                 ));
 
@@ -102,22 +101,23 @@ if ($query->have_posts()) :
             <?php while ($query->have_posts()) : $query->the_post(); ?>
                 <div class="photo-item">
                     <a href="<?php echo esc_url(get_permalink()); ?>">
-                    <img src="<?php echo esc_url(wp_get_attachment_image_url(get_post_thumbnail_id(), 'desktop-home')); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" class="photo-image">
+                        <img src="<?php echo esc_url(wp_get_attachment_image_url(get_post_thumbnail_id(), 'desktop-home')); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" class="photo-image">
 
                         <span class="icon-container">
                             <span class="photo-reference">
-                                <?php $reference = get_post_meta(get_the_ID(), 'Référence', true);
-                                    if ($reference) {
-                                        echo esc_html($reference);
-                                    } 
+                                <?php
+                                $reference = get_post_meta(get_the_ID(), 'Référence', true);
+                                if ($reference) {
+                                    echo esc_html($reference);
+                                }
                                 ?>
                             </span>
                             <span class="photo-category">
                                 <?php
-                                    $categories = get_the_terms(get_the_ID(), 'categorie');
-                                    if ($categories) {
-                                        echo esc_html($categories[0]->name);
-                                    }
+                                $categories = get_the_terms(get_the_ID(), 'categorie');
+                                if ($categories) {
+                                    echo esc_html($categories[0]->name);
+                                }
                                 ?>
                             </span>
                             <span class="photo-info-icon"><i class="fas fa-eye"></i></span>

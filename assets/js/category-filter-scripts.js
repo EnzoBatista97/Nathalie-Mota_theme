@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function initialize() {
 
     // Fonction de changement de filtre
     function handleFilterChange(selectedValue, dropdownType) {
-        switch(dropdownType) {
+        switch (dropdownType) {
             case 'category':
                 selectedCategory = selectedValue;
                 break;
@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function initialize() {
                 break;
         }
         page = 2;
-        console.log('Filtre changé :', selectedCategory, selectedFormat, selectedDate);
         loadPhotosByCategoryAndFormat();
     }
 
@@ -41,8 +40,6 @@ document.addEventListener('DOMContentLoaded', function initialize() {
             data.format = selectedFormat;
         }
 
-        console.log('Requête pour charger les photos :', data);
-
         fetch(frontendajax.ajaxurl, {
             method: 'POST',
             headers: {
@@ -57,27 +54,19 @@ document.addEventListener('DOMContentLoaded', function initialize() {
 
     // Fonction de gestion du succès du chargement des photos
     function handleFilterSuccess(response) {
-        console.log('Réponse de chargement des photos :', response);
-        if (response.success) {
-            if (response.data) {
-                const newHtml = response.data;
-                const photoListContainer = document.querySelector('.photo-list-section .photo-list-container');
-                photoListContainer.innerHTML = newHtml.trim() !== '' ? newHtml : console.error('La réponse Ajax a renvoyé un contenu vide.');
-                addHoverEffectToPhotos(); // Réappliquer les écouteurs d'événements de survol
-            } else {
-                console.error('La réponse Ajax ne contient pas de données valides.');
-            }
+        if (response.success && response.data) {
+            const newHtml = response.data;
+            const photoListContainer = document.querySelector('.photo-list-section .photo-list-container');
+            photoListContainer.innerHTML = newHtml.trim() !== '' ? newHtml : console.error('La réponse Ajax a renvoyé un contenu vide.');
+            addHoverEffectToPhotos();
         } else {
-            console.error('Erreur lors du chargement des photos :', response.data);
-            if (response.data && response.data.message) {
-                console.error('Erreur côté serveur :', response.data.message);
-            }
+            handleFilterError(response.data);
         }
     }
 
     // Fonction de gestion des erreurs de chargement des photos
     function handleFilterError(error) {
-        console.error('Erreur Ajax pour le filtre :', error);
+        console.error('Erreur lors du chargement des photos :', error && error.message ? error.message : 'Erreur inconnue');
     }
 
     // Fonction de chargement supplémentaire de photos
@@ -94,8 +83,6 @@ document.addEventListener('DOMContentLoaded', function initialize() {
             data.format = selectedFormat;
         }
 
-        console.log('Requête pour charger plus de photos :', data);
-
         fetch(frontendajax.ajaxurl, {
             method: 'POST',
             headers: {
@@ -110,24 +97,20 @@ document.addEventListener('DOMContentLoaded', function initialize() {
 
     // Fonction de gestion du succès du chargement supplémentaire de photos
     function handleLoadMoreSuccess(response) {
-        console.log('Réponse de chargement supplémentaire de photos :', response);
         if (response.success && response.data) {
             const newHtml = response.data;
             const photoListContainer = document.querySelector('.photo-list-section .photo-list-container');
             photoListContainer.innerHTML += newHtml.trim() !== '' ? newHtml : console.error('La réponse Ajax a renvoyé un contenu vide.');
             page++;
-            addHoverEffectToPhotos(); // Réappliquer les écouteurs d'événements de survol
+            addHoverEffectToPhotos();
         } else {
-            console.error('Erreur lors du chargement des photos :', response.data);
-            if (response.data && response.data.message) {
-                console.error('Erreur côté serveur :', response.data.message);
-            }
+            handleLoadMoreError(response.data);
         }
     }
 
     // Fonction de gestion des erreurs du chargement supplémentaire de photos
     function handleLoadMoreError(error) {
-        console.error('Erreur lors du chargement supplémentaire de photos :', error);
+        console.error('Erreur lors du chargement supplémentaire de photos :', error && error.message ? error.message : 'Erreur inconnue');
     }
 
     // Fonction pour gérer les états spécifiques de l'élément sélectionné
@@ -135,16 +118,15 @@ document.addEventListener('DOMContentLoaded', function initialize() {
         const dropdownToggle = dropdownList.parentElement.querySelector('.dropdown-toggle');
 
         dropdownList.querySelectorAll('li').forEach(item => {
-            // Gestion de la sélection
             item.addEventListener('click', function() {
                 const selectedValue = item.getAttribute('data-value');
-                const selectedLabel = item.getAttribute('data-label'); // Récupérer la valeur de l'attribut data-label
-                dropdownToggle.textContent = selectedLabel; // Afficher le label dans le rectangle
+                const selectedLabel = item.getAttribute('data-label');
+                dropdownToggle.textContent = selectedLabel;
                 handleFilterChange(selectedValue, dropdownType);
                 dropdownList.querySelectorAll('li').forEach(item => {
-                    item.classList.remove('selected'); // Supprimer la classe 'selected' de tous les éléments
+                    item.classList.remove('selected');
                 });
-                item.classList.add('selected'); // Ajouter la classe 'selected' à l'élément sélectionné
+                item.classList.add('selected');
                 dropdownList.classList.remove('show');
             });
         });
@@ -159,9 +141,8 @@ document.addEventListener('DOMContentLoaded', function initialize() {
             dropdownList.classList.toggle('show');
         });
 
-        handleDropdownItemStates(dropdownList, dropdownType); // Appeler la fonction pour gérer les états spécifiques des éléments
+        handleDropdownItemStates(dropdownList, dropdownType);
 
-        // Fermer la dropdown si on clique en dehors
         document.addEventListener('click', function(e) {
             if (!dropdownElement.contains(e.target)) {
                 dropdownList.classList.remove('show');

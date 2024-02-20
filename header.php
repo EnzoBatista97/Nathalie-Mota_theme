@@ -18,7 +18,6 @@
                 <?php the_custom_logo(); ?>
             </div>
 
-
             <button class="burger-menu-btn" aria-label="Menu" aria-expanded="false">
                 <img src="<?php echo get_template_directory_uri(); ?>/assets/images/icones/burger-menu.svg" alt="Menu Icon" class="burger-menu-icon">
             </button>

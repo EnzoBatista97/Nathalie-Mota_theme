@@ -8,10 +8,7 @@ body #site-navigation-header {
   margin: 0 146px;
 }
 body #site-navigation-header .logo {
-  margin-right: auto;
-  margin-top: 31px;
-  margin-bottom: 35px;
-  margin-left: 0px;
+  margin: 31px auto 35px 0;
 }
 body #site-navigation-header .logo img {
   width: 216px;
@@ -70,7 +67,6 @@ body .filter-section .filter-container .custom-dropdown .dropdown-toggle {
   align-self: stretch;
   cursor: pointer;
   color: var(--Black, #313144);
-  /* Drop Menu Menu */
   font-family: Poppins;
   font-size: 12px;
   font-style: normal;
@@ -166,9 +162,7 @@ body #contact-modal form p {
   margin: 0;
 }
 body #contact-modal img {
-  margin-top: 18px;
-  margin-bottom: 45.95px;
-  transform: translateX(-16.31%);
+  margin: 18px auto 45.95px -16.31%;
 }
 body #contact-modal .close-modal {
   display: none;
@@ -285,11 +279,11 @@ body .photo-details-section .cta-and-navigation-container .cta-container .cta-co
   cursor: pointer;
 }
 body .photo-details-section .cta-and-navigation-container .cta-container .cta-contact-button:hover {
-  color: #FFF;
+  color: #fff;
   background: #000;
   box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
 }
-body .photo-details-section .cta-and-navigation-container .cta-container p {
+body .photo-details-section .cta-and-navigation-container .cta-container .cta-contact-button p {
   font-family: "Poppins", sans-serif;
   font-size: 14px;
   font-style: normal;
@@ -304,8 +298,8 @@ body .photo-navigation {
   margin-top: 20px;
   border-bottom: 1px solid #000;
 }
-body .nav-previous a,
-body .nav-next a {
+body .photo-navigation .nav-previous a,
+body .photo-navigation .nav-next a {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -316,11 +310,9 @@ body .nav-next a {
 }
 body .related-photos-section {
   margin-top: 70px;
-  /* Styles pour la référence de la photo */
-  /* Styles pour la catégorie de la photo */
 }
 body .related-photos-section h3 {
-  margin-top: 0px;
+  margin: 0;
   margin-bottom: 52px;
   margin-left: 145px;
   font-family: "Space Mono";
@@ -355,10 +347,10 @@ body .related-photos-section .fullscreen-icon {
   color: #fff;
   cursor: pointer;
 }
-body .related-photos-section .photo-reference {
+body .related-photos-section .photo-reference,
+body .related-photos-section .photo-category {
   position: absolute;
   bottom: 10px;
-  left: 10px;
   color: #FFF;
   font-family: Poppins;
   font-size: 14px;
@@ -367,17 +359,11 @@ body .related-photos-section .photo-reference {
   line-height: normal;
   text-transform: uppercase;
 }
+body .related-photos-section .photo-reference {
+  left: 10px;
+}
 body .related-photos-section .photo-category {
-  position: absolute;
-  bottom: 10px;
   right: 10px;
-  color: #FFF;
-  font-family: Poppins;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  text-transform: uppercase;
 }
 body .related-photos-container {
   display: flex;
@@ -494,8 +480,6 @@ body .photo-list-section {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* Styles pour la référence de la photo */
-  /* Styles pour la catégorie de la photo */
 }
 body .photo-list-section .photo-list-container {
   display: grid;
@@ -517,7 +501,7 @@ body .photo-list-section .photo-list-container .photo-item .photo-image {
      object-fit: cover;
   display: block;
 }
-body .photo-list-section .photo-list-container .photo-item.hovered .icon-container {
+body .photo-list-section .photo-list-container .photo-item:hover .icon-container {
   display: flex;
   gap: 0px;
   background-color: rgba(0, 0, 0, 0.6);
@@ -541,10 +525,10 @@ body .photo-list-section .fullscreen-icon {
   color: #fff;
   cursor: pointer;
 }
-body .photo-list-section .photo-reference {
+body .photo-list-section .photo-reference,
+body .photo-list-section .photo-category {
   position: absolute;
   bottom: 10px;
-  left: 10px;
   color: #FFF;
   font-family: Poppins;
   font-size: 14px;
@@ -553,17 +537,11 @@ body .photo-list-section .photo-reference {
   line-height: normal;
   text-transform: uppercase;
 }
+body .photo-list-section .photo-reference {
+  left: 10px;
+}
 body .photo-list-section .photo-category {
-  position: absolute;
-  bottom: 10px;
   right: 10px;
-  color: #FFF;
-  font-family: Poppins;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  text-transform: uppercase;
 }
 body .photo-list-section .load-more-container {
   text-align: center;
